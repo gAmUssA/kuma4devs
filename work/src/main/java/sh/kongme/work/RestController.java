@@ -1,36 +1,45 @@
 package sh.kongme.work;
 
-import io.micronaut.http.HttpResponse;
-import io.micronaut.http.HttpStatus;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import io.micronaut.context.annotation.Value;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
-import io.micronaut.http.client.HttpClient;
-import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.uri.UriBuilder;
-import jakarta.inject.Inject;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 public class RestController {
 
-  @Client(("${meet.url:`http://localhost:8080`}"))
-  @Inject
-  HttpClient httpClient;
+  @Value(("${meet.url:`http://localhost:8080`}"))
+  String url;
+  //@Inject
+  //HttpClient httpClient;
 
+  @SneakyThrows
   @Get(uri = "/work", produces = MediaType.TEXT_PLAIN)
   public String work() {
     long start = System.currentTimeMillis();
     int count = 0;
+
+    HttpClient httpClient = HttpClient.newHttpClient();
+    HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(url + "/meet")).GET()
+        .version(HttpClient.Version.HTTP_1_1)
+        .setHeader("User-Agent", "Java/9");
+    HttpRequest request = builder.build();
+
+    //URI uri = UriBuilder.of("/meet").build();
+
     for (int i = 0; i < 4; i++) {
-      log.info("\uD83D\uDEB6 Going to meeting: {}", i);
-
-      String uri = UriBuilder.of("/meet").toString();
-
-      final HttpResponse<String> httpResponse = httpClient.toBlocking().exchange(uri);
-
-      if (httpResponse.status() == HttpStatus.OK) {
+      HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
+      if (response.statusCode() == 200) {
+        log.info("\uD83D\uDEB6 Going to meeting: {}", i);
         count++;
       }
     }
