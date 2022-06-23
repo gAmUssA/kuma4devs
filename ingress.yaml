@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    external-dns.alpha.kubernetes.io/hostname: shop.kongme.sh
+  name: frontend
+  namespace: boutique
+spec:
+  ingressClassName: kong
+  tls:
+    - secretName: shop-kongme-sh
+      hosts:
+        - shop.kongme.sh
+  rules:
+    - host: shop.kongme.sh
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
