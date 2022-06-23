@@ -40,14 +40,15 @@ jobs:
       - name: Build Docker Image AMD64
         run: ./gradlew bootBuildImage --imageName gamussa/mesh4java-meet:latest-amd64
 
-      - name: Build Docker Image ARM64
-        run: ./gradlew bootBuildImage --imageName gamussa/mesh4java-meet:latest-arm64 --builder docker.io/dmikusa2pivotal/builder:focal
+#      - name: Build Docker Image ARM64
+#        run: ./gradlew bootBuildImage --imageName gamussa/mesh4java-meet:latest-arm64 --builder docker.io/dmikusa2pivotal/builder:focal
 
       - name: Push to Docker Hub
-        run: docker push gamussa/mesh4java-meet:latest-amd64 && docker push gamussa/mesh4java-meet:latest-arm64
+        #run: docker push gamussa/mesh4java-meet:latest-amd64 && docker push gamussa/mesh4java-meet:latest-arm64
+        run: docker push gamussa/mesh4java-meet:latest-amd64
 
       - name: Create multiarch manifest
-        run: docker manifest create gamussa/mesh4java-meet:latest --amend gamussa/mesh4java-meet:latest-amd64 --amend gamussa/mesh4java-meet:latest-arm64
+        run: docker manifest create gamussa/mesh4java-meet:latest --amend gamussa/mesh4java-meet:latest-amd64
 
       - name: Push Manifest to Docker Hub
         run: docker manifest push gamussa/mesh4java-meet:latest
@@ -58,7 +59,7 @@ jobs:
         working-directory: work
     runs-on: ubuntu-latest
 
-    name: Build (jar and docker) Dummy 😴 Application
+    name: Build (jar and docker) 👨‍🏭 application
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
