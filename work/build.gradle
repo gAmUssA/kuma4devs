@@ -33,6 +33,10 @@ java {
   targetCompatibility = JavaVersion.toVersion("17")
 }
 
+dockerBuild {
+  images = ["gamussa/mesh4java-work:latest"]
+}
+
 tasks {
   jib {
     from {
