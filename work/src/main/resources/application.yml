@@ -1,0 +1,12 @@
+#meet:
+#  server:
+#    url: http://localhost:8080/
+micronaut:
+  application:
+    name: work
+  server:
+    port: 8081
+netty:
+  default:
+    allocator:
+      max-order: 3

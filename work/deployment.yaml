@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: work
+  labels:
+    app: work
+spec:
+  ports:
+    - port: 8081
+      protocol: TCP
+  clusterIP: None
+  selector:
+    app: work
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: work
+  labels:
+    app: work
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: work
+  template:
+    metadata:
+      labels:
+        app: work
+    spec:
+      containers:
+        - name: work
+          image: gamussa/mesh4java-work
+          env:
+            - name: MEET_URL
+              value: "http://meeting.mesh:8080"

@@ -1,0 +1,58 @@
+plugins {
+  id("com.github.johnrengelman.shadow") version "7.1.2"
+  id("io.micronaut.application") version "3.4.1"
+  id("com.google.cloud.tools.jib") version "2.8.0"
+}
+
+version = "0.1"
+group = "sh.kongme.work"
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  annotationProcessor("io.micronaut:micronaut-http-validation")
+  implementation("io.micronaut:micronaut-http-client")
+  implementation("io.micronaut:micronaut-http-server-netty")
+  implementation("io.micronaut:micronaut-jackson-databind")
+  implementation("io.micronaut:micronaut-inject-java")
+  implementation("jakarta.annotation:jakarta.annotation-api")
+  runtimeOnly("ch.qos.logback:logback-classic")
+  implementation("io.micronaut:micronaut-validation")
+  compileOnly 'org.projectlombok:lombok'
+  annotationProcessor 'org.projectlombok:lombok'
+
+}
+
+application {
+  mainClass.set("sh.kongme.work.Application")
+}
+java {
+  sourceCompatibility = JavaVersion.toVersion("17")
+  targetCompatibility = JavaVersion.toVersion("17")
+}
+
+tasks {
+  jib {
+    from {
+      image = "openjdk:17-alpine"
+    }
+    to {
+      //image = "gcr.io/myapp/jib-image"
+      image = "gamussa/mesh4java-work"
+    }
+  }
+}
+graalvmNative.toolchainDetection = false
+micronaut {
+  runtime("netty")
+  testRuntime("junit5")
+  processing {
+    incremental(true)
+    annotations("sh.kongme.work.*")
+  }
+}
+
+
+
