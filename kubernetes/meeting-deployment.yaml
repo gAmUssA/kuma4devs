@@ -10,6 +10,7 @@ spec:
   ports:
     - port: 8080
       protocol: TCP
+      appProtocol: http
   selector:
     app: meeting
 ---

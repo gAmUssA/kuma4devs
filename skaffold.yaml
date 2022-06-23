@@ -7,3 +7,4 @@ deploy:
     manifests:
       - kubernetes/meeting-deployment.yaml
       - kubernetes/work-deployment.yaml
+      - kubernetes/ingress.yaml

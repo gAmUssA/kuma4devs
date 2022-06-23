@@ -2,23 +2,20 @@ apiVersion: kuma.io/v1alpha1
 kind: FaultInjection
 mesh: default
 metadata:
-  name: fi1
+  name: fail-50-percent
 spec:
   sources:
     - match:
-        kuma.io/service: "work"
+        kuma.io/service: "work_mesh4java_svc_8081"
         kuma.io/protocol: http
   destinations:
     - match:
-        kuma.io/service: "meeting"
+        kuma.io/service: "meeting_mesh4java_svc_8080"
         kuma.io/protocol: http
   conf:
     abort:
       httpStatus: 500
       percentage: 50
-    delay:
-      percentage: 50.5
-      value: 5s
     responseBandwidth:
       limit: 50 mbps
       percentage: 50 

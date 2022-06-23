@@ -20,7 +20,7 @@ public class MeetingApplication {
   public void meeting(@RequestHeader Map<String, String> headers) {
 
     log.info("Client Headers: {}", headers);
-    
+
     log.info("gone meeting...");
     try {
       Thread.sleep(250L);

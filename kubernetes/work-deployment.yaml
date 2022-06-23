@@ -10,6 +10,7 @@ spec:
   ports:
     - port: 8081
       protocol: TCP
+      appProtocol: http
   selector:
     app: work
 ---
@@ -36,5 +37,5 @@ spec:
           env:
             - name: MEET_URL
               #value: "http://meeting.mesh:8080"
-              value: "http://meeting:8080"
+              value: "http://meeting.mesh"
           imagePullPolicy: Always
