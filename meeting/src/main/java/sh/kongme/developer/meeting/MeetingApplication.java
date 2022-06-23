@@ -21,7 +21,7 @@ public class MeetingApplication {
 
     log.info("Client Headers: {}", headers);
 
-    log.info("gone meeting...");
+    log.info("\uD83D\uDC68\u200D\uD83C\uDFED gone meeting...");
     try {
       Thread.sleep(250L);
     } catch (InterruptedException e) {
