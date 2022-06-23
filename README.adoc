@@ -1,0 +1,18 @@
+= Service Mesh for Java Developers
+Viktor Gamov <viktor@gamov.io>
+v1.0, 2022-06-23
+:toc:
+:imagesdir: assets/images
+:homepage: https://gamov.io
+
+A demo applications from «Service Mesh for Java Developers» talk.
+
+== commands scratchpad 
+
+[source,bash]
+.commands.sh
+----
+skaffold run -n mesh4java
+----
+
+
