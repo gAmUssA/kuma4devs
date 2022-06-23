@@ -1,0 +1,24 @@
+apiVersion: kuma.io/v1alpha1
+kind: Retry
+mesh: default
+metadata:
+  name: web-to-backend-retry-policy
+spec:
+  sources:
+    - match:
+        kuma.io/service: work_mesh4java_svc_8081
+  destinations:
+    - match:
+        kuma.io/service: meeting_mesh4java_svc_8080
+  conf:
+    http:
+      numRetries: 5
+      perTryTimeout: 200ms
+      backOff:
+        baseInterval: 20ms
+        maxInterval: 1s
+      retriableStatusCodes:
+        - 500
+        - 504
+      retriableMethods:
+        - GET

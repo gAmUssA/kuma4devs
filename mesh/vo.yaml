@@ -1,0 +1,17 @@
+apiVersion: kuma.io/v1alpha1
+kind: VirtualOutbound
+mesh: default
+metadata:
+  name: default
+spec:
+  selectors:
+    - match:
+        kuma.io/service: "*"
+  conf:
+    host: "{{.service}}.mesh"
+    port: "{{.port}}"
+    parameters:
+      - name: port
+        tagKey: port
+      - name: service
+        tagKey: "kuma.io/service"

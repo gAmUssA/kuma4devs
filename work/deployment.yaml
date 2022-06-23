@@ -33,4 +33,6 @@ spec:
           image: gamussa/mesh4java-work
           env:
             - name: MEET_URL
-              value: "http://meeting.mesh:8080"
+              #value: "http://meeting.mesh:8080"
+              value: "http://meeting:8080"
+          imagePullPolicy: Always

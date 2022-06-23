@@ -13,11 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MeetingApplication {
 
-  @SneakyThrows
   @GetMapping("/meet")
   public void meeting() {
-    log.info("(◔_◔) gone meeting...");
-    Thread.sleep(250L);
+    log.info("gone meeting...");
+    try {
+      Thread.sleep(250L);
+    } catch (InterruptedException e) {
+      // ¯\_( ͡° ͜ʖ ͡°)_/¯
+    }
   }
 
 

@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class RestController {
-  
+
   @Client(("${meet.url:`http://localhost:8080`}"))
   @Inject
   HttpClient httpClient;
@@ -26,8 +26,7 @@ public class RestController {
     for (int i = 0; i < 4; i++) {
       log.info("\uD83D\uDEB6 Going to meeting: {}", i);
 
-      String uri = UriBuilder.of("/meet")
-          .toString();
+      String uri = UriBuilder.of("/meet").toString();
 
       final HttpResponse<String> httpResponse = httpClient.toBlocking().exchange(uri);
 
