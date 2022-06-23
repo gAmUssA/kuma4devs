@@ -2,42 +2,8 @@ apiVersion: skaffold/v2beta28
 kind: Config
 metadata:
   name: kuma-java
-build:
-  artifacts:
-    - image: meeting
-      context: meeting
-      buildpacks:
-        builder: gcr.io/buildpacks/builder:v1
-    - image: work
-      context: work
-      buildpacks:
-        builder: gcr.io/buildpacks/builder:v1
 deploy:
   kubectl:
     manifests:
-      - meeting/deployment.yaml
-      - work/deployment.yaml
-portForward:
-  - resourceType: service
-    resourceName: meeting
-    port: 8080
-  - resourceType: service
-    resourceName: work
-    port: 8081
-
-profiles:
-  # "gcb" profile allows building and pushing the images
-  # on Google Container Builder without requiring docker
-  # installed on the developer machine. However, note that
-  # since GCB does not cache the builds, each build will
-  # start from scratch and therefore take a long time.
-  #
-  # This is not used by default. To use it, run:
-  #     skaffold run -p gcb
-  - name: gcb
-    build:
-      googleCloudBuild:
-        diskSizeGb: 300
-        machineType: N1_HIGHCPU_32
-        timeout: 4000s
-        concurrency: 2
+      - kubernetes/meeting-deployment.yaml
+      - kubernetes/work-deployment.yaml
