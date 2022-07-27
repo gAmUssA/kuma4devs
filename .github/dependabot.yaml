@@ -1,0 +1,22 @@
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "./meeting"
+    schedule:
+      interval: "weekly"
+    # Add reviewers
+    reviewers:
+      - "gamussa"
+    # Allow up to 10 open pull requests for gradle dependencies
+    open-pull-requests-limit: 5
+  - package-ecosystem: "gradle"
+    directory: "./work"
+    schedule:
+      interval: "weekly"
+    # Add reviewers
+    reviewers:
+      - "gamussa"
+    # Allow up to 10 open pull requests for gradle dependencies
+    open-pull-requests-limit: 5
