@@ -13,37 +13,38 @@ import io.micronaut.http.uri.UriBuilder;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import static io.micronaut.http.MediaType.*;
+import static java.lang.System.*;
+import static java.net.http.HttpRequest.*;
+import static java.net.http.HttpResponse.BodyHandlers.*;
+
 @Controller
 @Slf4j
 public class RestController {
 
   @Value(("${meet.url:`http://localhost:8080`}"))
   String url;
-  //@Inject
-  //HttpClient httpClient;
 
   @SneakyThrows
-  @Get(uri = "/work", produces = MediaType.TEXT_PLAIN)
+  @Get(uri = "/work", produces = TEXT_PLAIN)
   public String work() {
-    long start = System.currentTimeMillis();
+    long start = currentTimeMillis();
     int count = 0;
 
-    HttpClient httpClient = HttpClient.newHttpClient();
-    HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(url + "/meet")).GET()
+    var httpClient = HttpClient.newHttpClient();
+    var builder = newBuilder(URI.create(url + "/meet")).GET()
         .version(HttpClient.Version.HTTP_1_1)
         .setHeader("User-Agent", "Java/9");
-    HttpRequest request = builder.build();
-
-    //URI uri = UriBuilder.of("/meet").build();
+    var request = builder.build();
 
     for (int i = 0; i < 4; i++) {
-      HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
+      var response = httpClient.send(request, discarding());
       if (response.statusCode() == 200) {
         log.info("\uD83D\uDEB6 Going to meeting: {}", i);
         count++;
       }
     }
-    long end = System.currentTimeMillis();
+    long end = currentTimeMillis();
     return "\uD83D\uDCC6 worked for " + (end - start) + "ms, and went to " + count + " meetings";
   }
 

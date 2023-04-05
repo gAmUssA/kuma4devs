@@ -11,6 +11,8 @@ import java.util.Map;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import static java.lang.Thread.*;
+
 @SpringBootApplication
 @RestController
 @Slf4j
@@ -23,7 +25,7 @@ public class MeetingApplication {
 
     log.info("\uD83D\uDC68\u200D\uD83C\uDFED gone meeting...");
     try {
-      Thread.sleep(250L);
+      sleep(250L);
     } catch (InterruptedException e) {
       // ¯\_( ͡° ͜ʖ ͡°)_/¯
     }
