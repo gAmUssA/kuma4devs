@@ -16,3 +16,16 @@ skaffold run -n mesh4java
 ----
 
 
+.Enable sidecar injection in mesh4java namespace
+[source,yaml]
+----
+echo "apiVersion: v1
+kind: Namespace
+metadata:
+  name: mesh4java
+  namespace: mesh4java
+  annotations:
+    kuma.io/sidecar-injection: enabled
+    kuma.io/mesh: default" | kubectl apply -f - && kubectl delete pod --all -n mesh4java
+----
+
