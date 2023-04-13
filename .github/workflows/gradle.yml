@@ -91,7 +91,7 @@ jobs:
         working-directory: meeting-ktor
     runs-on: ubuntu-latest
 
-    name: 🔪 🗓️ Ktor Meeting App (Server)
+    name: 🍫 🗓️ Ktor Meeting App (Server)
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -126,7 +126,7 @@ jobs:
         working-directory: work-ktor
     runs-on: ubuntu-latest
 
-    name: 🔪 🧑‍💻 Ktor Work App (Client Server)
+    name: 🍫 🧑‍💻 Ktor Work App (Client Server)
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
