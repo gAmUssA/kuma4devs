@@ -2,21 +2,17 @@ package sh.kongme.work;
 
 import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 import io.micronaut.context.annotation.Value;
-import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
-import io.micronaut.http.uri.UriBuilder;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import static io.micronaut.http.MediaType.*;
-import static java.lang.System.*;
-import static java.net.http.HttpRequest.*;
-import static java.net.http.HttpResponse.BodyHandlers.*;
+import static io.micronaut.http.MediaType.TEXT_PLAIN;
+import static java.lang.System.currentTimeMillis;
+import static java.net.http.HttpRequest.newBuilder;
+import static java.net.http.HttpResponse.BodyHandlers.discarding;
 
 @Controller
 @Slf4j
@@ -28,6 +24,7 @@ public class RestController {
   @SneakyThrows
   @Get(uri = "/work", produces = TEXT_PLAIN)
   public String work() {
+    log.info("💉 Got meeting server url from environment: {}", url);
     long start = currentTimeMillis();
     int count = 0;
 
@@ -47,5 +44,4 @@ public class RestController {
     long end = currentTimeMillis();
     return "\uD83D\uDCC6 worked for " + (end - start) + "ms, and went to " + count + " meetings";
   }
-
 }
