@@ -12,20 +12,21 @@ A demo applications from «Service Mesh for Java Developers» talk.
 [source,bash]
 .commands.sh
 ----
-skaffold run -n mesh4java
-----
+# install skaffold from https://skaffold.dev/docs/install/
+skaffold run -n mesh4java #<1>
 
-
-.Enable sidecar injection in mesh4java namespace
-[source,yaml]
-----
 echo "apiVersion: v1
 kind: Namespace
 metadata:
-  name: mesh4java
-  namespace: mesh4java
-  annotations:
-    kuma.io/sidecar-injection: enabled
-    kuma.io/mesh: default" | kubectl apply -f - && kubectl delete pod --all -n mesh4java
-----
+name: mesh4java
+namespace: mesh4java
+annotations:
+kuma.io/sidecar-injection: enabled
+kuma.io/mesh: default" | kubectl apply -f - && kubectl delete pod --all -n mesh4java    #<2>
 
+# install kumactl from https://kuma.io/docs/2.1.x/installation/kubernetes/
+kumactl install observability | kubectl apply -f - #<3>
+----
+<1> deploy meeting and work apps using skaffold
+<2> Enable sidecar injection in mesh4java namespace
+<3> install observability stack using `kumactl`

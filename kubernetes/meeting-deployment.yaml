@@ -33,5 +33,5 @@ spec:
     spec:
       containers:
         - name: meeting
-          image: gamussa/mesh4java-meet
+          image: gamussa/mesh4java-meet:latest
           imagePullPolicy: Always

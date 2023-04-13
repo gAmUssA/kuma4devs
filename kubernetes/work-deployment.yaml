@@ -33,9 +33,13 @@ spec:
     spec:
       containers:
         - name: work
-          image: gamussa/mesh4java-work
+          image: gamussa/mesh4java-work-ktor:0.0.1
           env:
             - name: MEET_URL
+              # SM without VO
               #value: "http://meeting.mesh:8080"
-              value: "http://meeting.mesh"
+              # SM with VO. see mesh/vo.yaml
+              #value: "http://meeting.mesh"
+              # Kubernetes Default
+              value: "http://meeting:8080"
           imagePullPolicy: Always
