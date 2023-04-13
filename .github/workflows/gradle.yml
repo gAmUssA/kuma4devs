@@ -114,10 +114,10 @@ jobs:
       - name: Build Docker Image AMD64
         run: ./gradlew jib
 
-      - name: Create multiarch manifest
-        run: docker manifest create gamussa/mesh4java-meet-ktor:latest --amend gamussa/mesh4java-meet-ktor:0.0.1
-
-      - name: Push Manifest to Docker Hub
-        run: docker manifest push gamussa/mesh4java-meet-ktor:latest
+#      - name: Create multiarch manifest
+#        run: docker manifest create gamussa/mesh4java-meet-ktor:latest --amend gamussa/mesh4java-meet-ktor:0.0.1
+#
+#      - name: Push Manifest to Docker Hub
+#        run: docker manifest push gamussa/mesh4java-meet-ktor:latest
 
   
