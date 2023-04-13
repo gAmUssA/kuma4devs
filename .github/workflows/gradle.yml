@@ -22,6 +22,7 @@ jobs:
         with:
           java-version: 17
           distribution: 'liberica'
+          cache: 'gradle'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -67,6 +68,7 @@ jobs:
         with:
           java-version: 17
           distribution: 'liberica'
+          cache: 'gradle'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -99,11 +101,12 @@ jobs:
         with:
           java-version: 17
           distribution: 'liberica'
+          cache: 'gradle'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Test with Gradle
-        run: ./gradlew test
+        run: ./gradlew test --no-daemon
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -134,11 +137,12 @@ jobs:
         with:
           java-version: 17
           distribution: 'liberica'
+          cache: 'gradle'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Test with Gradle
-        run: ./gradlew test
+        run: ./gradlew test --no-daemon
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
