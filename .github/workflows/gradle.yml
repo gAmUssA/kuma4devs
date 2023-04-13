@@ -14,7 +14,7 @@ jobs:
         working-directory: meeting
     runs-on: ubuntu-latest
     
-    name: 🍃 Spring Boot Meeting App build
+    name: 🍃 🗓️ Spring Boot Meeting App build
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -59,7 +59,7 @@ jobs:
         working-directory: work-micronaut
     runs-on: ubuntu-latest
 
-    name: 🪐 Micronaut Work App build
+    name: 🪐 🧑‍💻 Micronaut Work App build
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -84,14 +84,14 @@ jobs:
 
       - name: Push to Docker Hub
         run: ./gradlew dockerPush
-        
+  
   meeting-ktor:
     defaults:
       run:
         working-directory: meeting-ktor
     runs-on: ubuntu-latest
 
-    name: 🔪 Ktor Meeting App (Server) 
+    name: 🔪 🗓️ Ktor Meeting App (Server)
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -113,11 +113,39 @@ jobs:
 
       - name: Build Docker Image AMD64
         run: ./gradlew jib
+  
+  #      - name: Create multiarch manifest
+  #        run: docker manifest create gamussa/mesh4java-meet-ktor:latest --amend gamussa/mesh4java-meet-ktor:0.0.1
+  #
+  #      - name: Push Manifest to Docker Hub
+  #        run: docker manifest push gamussa/mesh4java-meet-ktor:latest
 
-#      - name: Create multiarch manifest
-#        run: docker manifest create gamussa/mesh4java-meet-ktor:latest --amend gamussa/mesh4java-meet-ktor:0.0.1
-#
-#      - name: Push Manifest to Docker Hub
-#        run: docker manifest push gamussa/mesh4java-meet-ktor:latest
+  work-ktor:
+    defaults:
+      run:
+        working-directory: work-ktor
+    runs-on: ubuntu-latest
 
+    name: 🔪 🧑‍💻 Ktor Work App (Client Server)
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'liberica'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Test with Gradle
+        run: ./gradlew test
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker Image AMD64
+        run: ./gradlew jib
   
