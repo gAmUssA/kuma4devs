@@ -13,7 +13,7 @@ class ApplicationTest {
         application {
             configureRouting()
         }
-        client.get("/").apply {
+        client.get("/meet").apply {
             assertEquals(HttpStatusCode.OK, status)
             assertEquals("✅ done...", bodyAsText())
         }
