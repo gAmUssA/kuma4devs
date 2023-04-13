@@ -102,8 +102,8 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Test with Gradle
+        run: ./gradlew test
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -122,12 +122,12 @@ jobs:
 
       - name: Push to Docker Hub
         #run: docker push gamussa/mesh4java-meet:latest-amd64 && docker push gamussa/mesh4java-meet:latest-arm64
-        run: docker push gamussa/mesh4java-meet:latest
+        run: docker push gamussa/mesh4java-meet-ktor:0.0.1
 
-#      - name: Create multiarch manifest
-#        run: docker manifest create gamussa/mesh4java-meet:latest --amend gamussa/mesh4java-meet:latest-amd64
-#
-#      - name: Push Manifest to Docker Hub
-#        run: docker manifest push gamussa/mesh4java-meet:latest
+      - name: Create multiarch manifest
+        run: docker manifest create gamussa/mesh4java-meet:latest --amend gamussa/mesh4java-meet:0.0.1
+
+      - name: Push Manifest to Docker Hub
+        run: docker manifest push gamussa/mesh4java-meet:latest
 
   
