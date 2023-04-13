@@ -111,23 +111,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
       - name: Build Docker Image AMD64
-        run: ./gradlew jibDockerBuild
-
-      #      - name: Build Docker Image ARM64
-      #        run: ./gradlew bootBuildImage --imageName gamussa/mesh4java-meet:latest-arm64 --builder docker.io/dmikusa2pivotal/builder:focal
-
-      - name: Push to Docker Hub
-        #run: docker push gamussa/mesh4java-meet:latest-amd64 && docker push gamussa/mesh4java-meet:latest-arm64
-        run: docker push gamussa/mesh4java-meet-ktor:0.0.1
+        run: ./gradlew jib
 
       - name: Create multiarch manifest
-        run: docker manifest create gamussa/mesh4java-meet:latest --amend gamussa/mesh4java-meet:0.0.1
+        run: docker manifest create gamussa/mesh4java-meet-ktor:latest --amend gamussa/mesh4java-meet-ktor:0.0.1
 
       - name: Push Manifest to Docker Hub
-        run: docker manifest push gamussa/mesh4java-meet:latest
+        run: docker manifest push gamussa/mesh4java-meet-ktor:latest
 
   

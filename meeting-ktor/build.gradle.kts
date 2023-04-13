@@ -29,7 +29,7 @@ jib {
 
     from {
         image = "bellsoft/liberica-openjdk-alpine"
-        /*platforms {
+        platforms {
             platform {
                 architecture = "amd64"
                 os = "linux"
@@ -38,7 +38,7 @@ jib {
                 architecture = "arm64"
                 os = "linux"
             }
-        }*/
+        }
     }
 }
 
