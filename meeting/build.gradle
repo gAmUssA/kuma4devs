@@ -33,3 +33,10 @@ tasks.named('test') {
 tasks.named("bootBuildImage") {
   imageName = "gamussa/mesh4java-meet"
 }
+
+bootBuildImage {
+  builder = 'dashaun/builder:tiny'
+  environment = ['BP_NATIVE_IMAGE': 'true']
+  imageName = "gamussa/native-quote-service:0.0.5-SNAPSHOT"
+  verboseLogging = true
+}

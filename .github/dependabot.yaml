@@ -12,7 +12,16 @@ updates:
     # Allow up to 10 open pull requests for gradle dependencies
     open-pull-requests-limit: 5
   - package-ecosystem: "gradle"
-    directory: "./work"
+    directory: "./meeting-ktor"
+    schedule:
+      interval: "weekly"
+    # Add reviewers
+    reviewers:
+      - "gamussa"
+    # Allow up to 10 open pull requests for gradle dependencies
+    open-pull-requests-limit: 5
+  - package-ecosystem: "gradle"
+    directory: "./work-micronaut"
     schedule:
       interval: "weekly"
     # Add reviewers
