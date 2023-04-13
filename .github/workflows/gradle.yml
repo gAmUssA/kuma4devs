@@ -14,7 +14,7 @@ jobs:
         working-directory: meeting
     runs-on: ubuntu-latest
     
-    name: Build (jar and docker) Dummy 😴 Application
+    name: 🍃 Spring Boot Meeting App build
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -59,7 +59,7 @@ jobs:
         working-directory: work-micronaut
     runs-on: ubuntu-latest
 
-    name: Build (jar and docker) 👨‍🏭 application
+    name: 🪐 Micronaut Work App build
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -91,7 +91,7 @@ jobs:
         working-directory: meeting-ktor
     runs-on: ubuntu-latest
 
-    name: Build (jar and docker) Dummy 😴 Application
+    name: 🔪 Ktor Meeting App (Server) 
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
