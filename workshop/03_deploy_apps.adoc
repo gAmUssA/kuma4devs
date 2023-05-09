@@ -1,0 +1,74 @@
+== Deploying Java Demo Applications with Skaffold
+
+In this section, we'll deploy Java demo applications built using Spring Boot and Micronaut frameworks with the help of Skaffold.
+This command-line tool simplifies the development and deployment of Kubernetes applications.
+We'll start by giving a brief overview of Skaffold, discussing its pros and cons compared to customizing or using Helm and then create a namespace with an enabled label for sidecar injection.
+
+=== Skaffold Overview
+
+Skaffold is an open-source CLI tool developed by Google that automates the workflow of building, pushing, and deploying Kubernetes applications. It supports multiple build and deploy strategies, making it highly configurable and extensible. Skaffold can be used in various stages of the development process, from local development to continuous integration and continuous deployment (CI/CD) pipelines.
+
+*Pros:*
+- Streamlines the entire build, push, and deploy process
+- Supports live updates during development for a faster feedback loop
+- Integrates with various CI/CD tools
+- Extensible with custom plugins and hooks
+
+*Cons:*
+- The learning curve for developers not familiar with Kubernetes
+- May require additional configuration for complex applications
+
+=== Step 1: Install Skaffold (if not already installed)
+
+To install Skaffold, follow the link for your specific operating system:https://skaffold.dev/docs/install/[official Skaffold installation guide].
+Once installed, you can verify the installation by running:
+
+[source,bash]
+----
+skaffold version
+v2.4.0
+----
+
+You should see the version information for Skaffold.
+
+=== Step 2: Create Namespace with Enabled Label for Sidecar Injection
+
+Before deploying the demo applications, create a new namespace with an enabled label for sidecar injection:
+
+[source,bash]
+----
+kubectl create namespace mesh4java
+kubectl label namespace mesh4java kuma.io/sidecar-injection=enabled
+----
+
+This command creates a new namespace called `mesh4java` and adds a label that enables Kuma sidecar injection for all pods within the namespace.
+
+=== Step 3: Deploy Spring Boot and Micronaut Demo Applications
+
+With the namespace created and sidecar injection enabled, use Skaffold to deploy the Java demo applications built with Spring Boot and Micronaut:
+
+[source,bash]
+----
+skaffold run -n mesh4java
+----
+
+This command reads the `skaffold.yaml` configuration file, builds and pushes the Docker images for the demo applications, and deploys them to the `mesh4java` namespace within your Kubernetes cluster.
+
+=== Step 4: Verify Deployment of Demo Applications
+
+After deploying the demo applications, verify that all components are running successfully:
+
+[source,bash]
+----
+kubectl get pods -n mesh4java
+----
+
+You should see a list of pods related to the Spring Boot and Micronaut demo applications, and their status should be `Running`.
+
+image::demo_apps_pods_running.png[Demo Apps Pods Running]
+
+Congratulations! 
+You have successfully deployed Java demo applications using Spring Boot and Micronaut frameworks with Skaffold.
+The following section will connect the demo applications to the service mesh and enable traffic policies.
+
+<<top, Back on top☝️>>
