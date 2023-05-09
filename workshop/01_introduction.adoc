@@ -1,7 +1,7 @@
 == Introduction
 
 This workshop will focus on https://kuma.io[Kuma], a versatile and easy-to-use service mesh control plane built on top of Envoy proxy.
-Initially, Kuma was developed by Kong but was donated to CNCF Community.
+Initially, Kuma was developed by Kong but was donated to the CNCF Community.
 Kuma offers many features, including traffic routing, load balancing, mTLS encryption, rate limiting, and observability.
 We will work with Java demo applications built using Spring Boot and Micronaut frameworks and deploy them within a Kubernetes cluster.
 
@@ -9,12 +9,12 @@ image::kuma_architecture.jpeg[Kuma Architecture]
 
 Throughout the workshop, you'll learn how to:
 
-- Set up the Kuma service mesh control plane using Helm or using `kumactl.`
-- Deploy and connect Java demo applications to the service mesh
-- Enable traffic policies like routing, load balancing, mTLS encryption, and rate limiting
-- Gain insights into your service mesh using Grafana and Prometheus for observability
+- Set up the Kuma service mesh control plane.
+- Deploy and connect Java demo applications to the service mesh.
+- Enable traffic policies like routing, load balancing, mTLS encryption, and rate limiting.
+- Gain insights into your service mesh using Grafana and Prometheus for observability.
 
-Before we begin, I hope you've already set up the necessary tools and met the <<_requirements_for_attendees, prerequisites>> outlined earlier.
+Before we begin, I hope you've already set up the necessary tools and met the <<_requirements_for_attendees,prerequisites>> outlined earlier.
 If you encounter any issues during the workshop, please don't hesitate to ask questions.
 Active participation is highly encouraged, as hands-on exercises will help you gain practical experience with service mesh technologies.
 

@@ -6,17 +6,21 @@ We'll start by giving a brief overview of Skaffold, discussing its pros and cons
 
 === Skaffold Overview
 
-Skaffold is an open-source CLI tool developed by Google that automates the workflow of building, pushing, and deploying Kubernetes applications. It supports multiple build and deploy strategies, making it highly configurable and extensible. Skaffold can be used in various stages of the development process, from local development to continuous integration and continuous deployment (CI/CD) pipelines.
+Skaffold is an open-source CLI tool developed by Google that automates the workflow of building, pushing, and deploying Kubernetes applications. 
+It supports multiple build and deploy strategies, making it highly configurable and extensible.
+Skaffold can be used in various stages of the development process, from local development to continuous integration and continuous deployment (CI/CD) pipelines.
 
 *Pros:*
-- Streamlines the entire build, push, and deploy process
-- Supports live updates during development for a faster feedback loop
-- Integrates with various CI/CD tools
-- Extensible with custom plugins and hooks
+
+* Streamlines the entire build, push, and deploy process
+* Supports live updates during development for a faster feedback loop
+* Integrates with various CI/CD tools
+* Extensible with custom plugins and hooks
 
 *Cons:*
-- The learning curve for developers not familiar with Kubernetes
-- May require additional configuration for complex applications
+
+* The learning curve for developers who are not familiar with Kubernetes.
+* May require additional configuration for complex applications.
 
 === Step 1: Install Skaffold (if not already installed)
 
@@ -68,7 +72,7 @@ Deployments stabilized in 6.076 seconds
 You can also run [skaffold run --tail] to get the logs
 ----
 
-This command reads the `skaffold.yaml` configuration file, builds and pushes the Docker images for the demo applications, and deploys them to the `mesh4java` namespace within your Kubernetes cluster.
+This command reads the `skaffold.yaml` configuration file and deploys images (publicly available in Docker Hub) them to the `mesh4java` namespace within your Kubernetes cluster.
 
 === Step 4: Verify Deployment of Demo Applications
 

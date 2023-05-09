@@ -25,7 +25,7 @@ apiVersion: kuma.io/v1alpha1
 kind: MeshHTTPRoute
 metadata:
   name: http-route-1
-  namespace: kuma-system
+  namespace: mesh4java
   labels:
     kuma.io/mesh: default
 spec:
@@ -57,7 +57,7 @@ Apply the traffic routing policy to the `mesh4java` namespace:
 kubectl apply -f mesh-route-add-header.yaml -n mesh4java
 ----
 
-This policy adds extra custom header `x-kuma-header` to all request to `meeting` service.
+This policy adds extra custom header `x-kuma-header` to all requests to `meeting` service.
 
 === Step 3: Enable mTLS Encryption
 
@@ -93,9 +93,9 @@ kubectl apply -f mtls.yaml
 
 This configuration enables mTLS encryption using a built-in certificate authority (CA).
 
-=== Step 4: Enable Rate Limiting Policy
+=== Step 4: Enable Rate-Limiting Policy
 
-Create a rate limiting policy to limit the number of requests per second (RPS) to the demo applications:
+Create a rate-limiting policy to limit the number of requests per second (RPS) to the demo applications:
 
 [source,yaml]
 ----
@@ -103,7 +103,7 @@ apiVersion: kuma.io/v1alpha1
 kind: MeshRateLimit
 metadata:
   name: meeting-rate-limit
-  namespace: kuma-system
+  namespace: mesh4java
 spec:
   targetRef:
     kind: MeshService
@@ -125,7 +125,7 @@ spec:
                     value: "true"
 ----
 
-Apply the rate limiting policy to the `mesh4java` namespace:
+Apply the rate-limiting policy to the `mesh4java` namespace:
 
 [source,bash]
 ----

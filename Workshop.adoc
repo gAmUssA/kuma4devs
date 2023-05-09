@@ -28,6 +28,8 @@ include::workshop/02_setting_up_kuma.adoc[]
 
 include::workshop/03_deploy_apps.adoc[]
 
+include::workshop/03_expose_apps_via_ingress.adoc[]
+
 include::workshop/04_policies.adoc[]
 
 include::workshop/05_observability.adoc[]

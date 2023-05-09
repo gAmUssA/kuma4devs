@@ -14,13 +14,19 @@ You should see the version information for `kumactl`.
 > kumactl version
 
 Client: Kuma 2.2.0
-Unable to connect to control plane: Get "http://localhost:5681/": dial tcp 127.0.0.1:5681: connect: connection refused
+Unable to connect to control plane: Get "http://localhost:5681/": dial tcp 127.0.0.1:5681: connect: connection refused #<1>
 ----
-
+<1> ignore this error for now, we will fix it later
 
 === Step 2: Deploy Kuma Control Plane to Kubernetes Cluster
 
 With `kumactl` installed, we can now deploy the Kuma control plane to our Kubernetes cluster.
+
+WARNING: At this point, you need to have Kubernetes cluster up and running.
+We don't provide instructions for setting up a Kubernetes cluster in this workshop.
+You can use `minikube` (check `make minikube-create-cluster` task automatically install minikube).
+You also can use Kubernetes in managed services (like GKE, AWS EKS, etc).
+
 First, create a new namespace for Kuma:
 
 [source,bash]
@@ -46,22 +52,23 @@ After deploying the Kuma control plane, verify that all components are running s
 kubectl get pods -n kuma-system
 
 NAME                                  READY   STATUS    RESTARTS      AGE
-kuma-control-plane-79cbbd88cb-j6jnh   1/1     Running   1 (96s ago)   4d4h
+kuma-control-plane-79cbbd88cb-j6jnh   1/1     Running   1 (96s ago)   4d4h  #<1>
 ----
-
-You should see a list of pods related to Kuma, and their status should be `Running`.
-
-Congratulations! You have successfully set up the Kuma service mesh control plane using `kumactl`.
-In the next section, we'll deploy Java demo applications and connect them to the service mesh.
+<1>  You should see a list of pods related to Kuma, and their status should be `Running`.
 
 [source,bash]
 .Port Forwarding into Kuma pod
 ----
-kubectl port-forward svc/kuma-control-plane -n kuma-system 5681:5681 
+kubectl port-forward svc/kuma-control-plane -n kuma-system 5681:5681  #<1> 
 ----
+<1> create a port-forward rule to expose Kuma UI.
 
 and open your browser http://localhost:5681/gui/
 
 image::kuma_is_running.png[Kuma Pods Running]
+
+Congratulations! 
+You have successfully set up the Kuma service mesh control plane using `kumactl`.
+In the next section, we'll deploy Java demo applications and connect them to the service mesh.
 
 <<top,Back on top☝️>>

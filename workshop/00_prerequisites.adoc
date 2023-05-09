@@ -28,8 +28,8 @@ Ensure that the following tools are installed and set up on your local machine b
 - link:https://k9scli.io/topics/install/[K9s Kubernetes client (latest version)]
 - link:http://https://insomnia.rest/download[Insomnia]
 
-. *Laptop with appropriate operating system*:
-Attendees should bring a laptop with a Linux or macOS operating system, at least 8 GB of RAM, and a modern multi-core processor to run the necessary tools and applications during the workshop.
+. *Laptop with an appropriate operating system*:
+Attendees should bring a laptop with a Linux or macOS operating system, at least 8 GB of RAM, and a modern multicore processor to run the necessary tools and applications during the workshop.
 Ensure that you have a stable internet connection for the workshop's duration.
 
 NOTE: For Windows laptop users, unfortunately, we don't have access to Windows machines to validate all the instructions.

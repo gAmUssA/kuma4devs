@@ -1,0 +1,131 @@
+== *Optional*: Installing Kong Ingress Controller and Enabling Kuma Sidecar Injection
+
+In this section, we will install the Kong Ingress Controller using Helm and enable the label for Kuma sidecar injection. 
+We will also discuss the pros and cons of using Kong Ingress Controller compared to the default Kubernetes Ingress Controller (such as NGINX).
+
+=== Pros and Cons of Kong Ingress Controller vs. Default Kubernetes Ingress Controller
+
+*Pros:*
+
+- Advanced API gateway features, such as authentication, rate limiting, and request/response transformations
+- Native integration with Kuma for service mesh and ingress management
+- Support for multiple protocols (HTTP, HTTPS, TCP, and TLS)
+- Extensible with custom plugins
+- Active community and commercial support available
+
+*Cons:*
+
+- Additional complexity compared to the default Kubernetes Ingress Controller
+- Requires learning Kong-specific configuration and concepts
+
+=== Step 1: Add the Kong Helm Repository
+
+First, add the Kong Helm repository to your Helm client:
+
+[source,bash]
+----
+helm repo add kong https://charts.konghq.com
+helm repo update
+----
+
+This command adds the Kong Helm repository and updates your Helm client with the latest chart versions.
+
+=== Step 2: Install Kong Ingress Controller Using Helm
+
+To install the Kong Ingress Controller using Helm, run the following command:
+
+[source,bash]
+----
+kubectl create namespace kong
+kubectl label namespace kong kuma.io/sidecar-injection=enabled  #<1>
+----
+<1> This command adds the sidecar injection label to the `kong` namespace, ensuring that Kuma injects sidecar proxies for all pods in the namespace.
+
+[source,bash]
+----
+helm install kong kong/kong 
+----
+
+This command installs the Kong Ingress Controller with the Ingress controller enabled.
+
+=== Step 3: Verify Kong Ingress Controller Deployment
+
+After deploying the Kong Ingress Controller, verify that all components are running successfully:
+
+[source,bash]
+----
+kubectl get pods -n kong
+----
+
+You should see a list of pods related to the Kong Ingress Controller, and their status should be `Running`.
+
+image::kong_pods_running.png[Kong Pods Running]
+
+Congratulations! 
+You have successfully installed the Kong Ingress Controller and enabled Kuma sidecar injection. 
+By using Kong as your Ingress controller, you can take advantage of its advanced API gateway features and native integration with Kuma service mesh.
+
+== Configuring Kubernetes Ingress for Work App
+
+In this section, we will configure a Kubernetes Ingress resource for the Work Service microservice, allowing external traffic to access the service through the Kong Ingress Controller.
+
+=== Step 1: Create a Kubernetes Ingress Resource
+
+Create a Kubernetes Ingress resource for the Work microservice with the following YAML:
+
+[source,yaml]
+----
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: mesh4java.kongme.sh
+  name: work
+  namespace: mesh4java
+spec:
+  ingressClassName: kong
+  rules:
+    - host: mesh4java.kongme.sh
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: work
+                port:
+                  number: 8081
+----
+
+This Ingress resource specifies that external traffic should be routed to the Work microservice when accessing the `/` path.
+
+The `kubernetes.io/ingress.class` annotation indicates that the Kong Ingress Controller should manage this Ingress resource.
+
+Save this YAML as `ingress.yaml`.
+
+=== Step 2: Apply the Ingress Resource
+
+Apply the Ingress resource to the `demo-apps` namespace:
+
+[source,bash]
+----
+kubectl apply -f ingress.yaml -n mesh4java
+----
+
+This command creates the Ingress resource for the Work microservice.
+
+=== Step 3: Verify Ingress Resource Creation
+
+Verify that the Ingress resource has been created:
+
+[source,bash]
+----
+kubectl get ingress -n mesh4java
+----
+
+You should see the `work` resource listed, indicating that it has been created successfully.
+
+image::micronaut_ingress_created.png[Work Ingress Created]
+
+Congratulations! You have successfully configured a Kubernetes Ingress resource for the Work microservice. 
+Now, external traffic can access the service through the Kong Ingress Controller by using the `/` path.
