@@ -1,0 +1,22 @@
+apiVersion: kuma.io/v1alpha1
+kind: RateLimit
+mesh: default
+metadata:
+  name: rate-limit-all-to-backend
+spec:
+  sources:
+    - match:
+        kuma.io/service: "*"
+  destinations:
+    - match:
+        kuma.io/service: meeting_mesh4java_svc_8080
+  conf:
+    http:
+      requests: 3
+      interval: 10s
+      onRateLimit:
+        status: 423
+        headers:
+          - key: "x-kuma-rate-limited"
+            value: "true"
+            append: true

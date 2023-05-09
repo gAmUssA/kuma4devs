@@ -5,6 +5,7 @@ v1.0, 2023-05-02
 :imagesdir: assets/images
 :kuma-homepage: http://kuma.io
 :imagesdir: ./workshop/images
+:hide-uri-scheme:
 
 Hello and welcome to the "Service Mesh for Java Developers" workshop.
 Service mesh is a powerful pattern for managing communication between microservices in a distributed system.

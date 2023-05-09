@@ -60,6 +60,7 @@ check-dependencies:
 	@$(call check-dependency,envsubst)
 	@$(call check-dependency,kumactl)
 	@$(call check-dependency,helm)
+	@$(call check-dependency,skaffold)
 	@echo ""
 
 check-grpc-dependencies:

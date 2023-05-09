@@ -7,6 +7,8 @@ v1.0, 2022-06-23
 
 A demo applications from «Service Mesh for Java Developers» talk.
 
+Looking for link:Workshop.adoc[]
+
 == commands scratchpad 
 
 [source,bash]
@@ -15,14 +17,10 @@ A demo applications from «Service Mesh for Java Developers» talk.
 # install skaffold from https://skaffold.dev/docs/install/
 skaffold run -n mesh4java #<1>
 
-echo "apiVersion: v1
-kind: Namespace
-metadata:
-name: mesh4java
-namespace: mesh4java
-annotations:
-kuma.io/sidecar-injection: enabled
-kuma.io/mesh: default" | kubectl apply -f - && kubectl delete pod --all -n mesh4java    #<2>
+kubectl create namespace mesh4java
+kubectl label namespace mesh4java kuma.io/sidecar-injection=enabled
+
+kubectl delete pod --all -n mesh4java    #<2>
 
 # install kumactl from https://kuma.io/docs/2.1.x/installation/kubernetes/
 kumactl install observability | kubectl apply -f - #<3>

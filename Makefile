@@ -130,12 +130,14 @@ obs-tools-uninstall: check-dependencies
 	kumactl install  observability | kubectl delete -f -
 	@echo ""
 	
-skaffold-run: check-dependencies
+skaffold-run:
+	@$(call check-dependency,skaffold)
 	@echo "☕️ Deploy Apps with Skaffold"
 	skaffold run -n mesh4java
 	@echo ""
 
 skaffold-delete: check-dependencies
+	@$(call check-dependency,skaffold)
 	@echo "🔥 uninstall Apps with "
 	skaffold delete -n mesh4java
 	@echo ""
