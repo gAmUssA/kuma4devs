@@ -7,8 +7,6 @@ v1.0, 2022-06-23
 
 A demo applications from «Service Mesh for Java Developers» talk.
 
-Looking for link:Workshop.adoc[]
-
 == commands scratchpad 
 
 [source,bash]
