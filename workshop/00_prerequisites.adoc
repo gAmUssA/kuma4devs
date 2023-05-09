@@ -26,6 +26,7 @@ Ensure that the following tools are installed and set up on your local machine b
 - link:https://jdk.java.net/17/[Java Development Kit (JDK) 17]
 - link:https://www.jetbrains.com/idea/download/[IntelliJ IDEA (Community Edition or existing license for Enterprise Edition; Community Edition is sufficient)]
 - link:https://k9scli.io/topics/install/[K9s Kubernetes client (latest version)]
+- link:http://https://insomnia.rest/download[Insomnia]
 
 . *Laptop with appropriate operating system*:
 Attendees should bring a laptop with a Linux or macOS operating system, at least 8 GB of RAM, and a modern multi-core processor to run the necessary tools and applications during the workshop.
