@@ -33,7 +33,7 @@ To access the Grafana dashboard, expose the Grafana service using port forwardin
 
 [source,bash]
 ----
-kubectl port-forward svc/kuma-grafana -n kuma-system 3000:80
+kubectl port-forward svc/grafana -n mesh-observability 3000:80
 ----
 
 This command maps the Grafana service's port 80 to your local machine's port 3000.
