@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: work
-          image: gamussa/mesh4java-work-ktor:0.0.1
+          image: gamussa/mesh4java-work:latest
           env:
             - name: MEET_URL
               # SM without VO

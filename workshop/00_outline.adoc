@@ -1,0 +1,36 @@
+== 📝 Workshop outline
+
+1. *<<Introduction>> (15 minutes)*
+- Welcome and workshop overview
+- Brief introduction to service mesh concepts
+- Service mesh benefits for Java/JVM developers
+
+2. *<<Setting up the Kuma Service Mesh Control Plane>> (20 minutes)*
+- Installing Kuma
+- Exploring Kuma components and architecture
+- Understanding the role of the control plane in a service mesh
+
+3. *<<Deploying Java Demo Applications with Skaffold>> (30 minutes)*
+- Creating Spring Boot and Micronaut demo applications
+- Containerizing the applications using Docker
+- Deploying the applications to Kubernetes
+- Connecting the applications to the service mesh
+
+4. *<<Connecting Demo Applications to the Service Mesh and Enabling Traffic Policies>> (30 minutes)*
+- Introduction to traffic policies in service mesh
+- Implementing traffic routing and load balancing
+- Configuring mTLS for secure communication
+- Applying rate limiting and retries
+
+5. *<<Exploring Observability Features with Grafana and Prometheus>> (20 minutes)*
+- Installing Grafana and Prometheus
+- Integrating Grafana and Prometheus with Kuma
+- Exploring service mesh metrics and dashboards
+- Gaining insights into application performance
+
+6. *<<Workshop Recap and Next Steps>> (5 minutes)*
+- Recap of the workshop content
+- Addressing any remaining questions
+- Closing remarks and next steps
+
+<<top, Back on top☝️>>
