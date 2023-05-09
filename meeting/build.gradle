@@ -1,6 +1,7 @@
 plugins {
-  id 'org.springframework.boot' version '3.0.5'
+  id 'org.springframework.boot' version '3.0.6'
   id 'io.spring.dependency-management' version '1.1.0'
+  id 'org.graalvm.buildtools.native' version '0.9.20'
   id 'java'
 }
 
@@ -37,6 +38,6 @@ tasks.named("bootBuildImage") {
 bootBuildImage {
   builder = 'dashaun/builder:tiny'
   environment = ['BP_NATIVE_IMAGE': 'true']
-  imageName = "gamussa/native-quote-service:0.0.5-SNAPSHOT"
+  imageName = "gamussa/mesh4java-meet"
   verboseLogging = true
 }

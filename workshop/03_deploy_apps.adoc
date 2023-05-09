@@ -50,6 +50,22 @@ With the namespace created and sidecar injection enabled, use Skaffold to deploy
 [source,bash]
 ----
 skaffold run -n mesh4java
+
+No tags generated
+Starting test...
+Starting deploy...
+ - service/meeting configured
+ - deployment.apps/meeting configured
+ - service/work configured
+ - deployment.apps/work configured
+ - ingress.networking.k8s.io/work unchanged
+Waiting for deployments to stabilize...
+ - mesh4java:deployment/meeting:
+ - mesh4java:deployment/work:
+ - mesh4java:deployment/meeting is ready. [1/2 deployment(s) still pending]
+ - mesh4java:deployment/work is ready.
+Deployments stabilized in 6.076 seconds
+You can also run [skaffold run --tail] to get the logs
 ----
 
 This command reads the `skaffold.yaml` configuration file, builds and pushes the Docker images for the demo applications, and deploys them to the `mesh4java` namespace within your Kubernetes cluster.
