@@ -1,0 +1,67 @@
+== Setting up the Kuma Service Mesh Control Plane
+
+In this section, we'll walk through the process of setting up the Kuma service mesh control plane using `kumactl`, the command-line interface (CLI) for Kuma.
+We'll start by downloading and installing `kumactl`, and finally deploying Kuma to our Kubernetes cluster.
+
+=== Step 1: Install kumactl (if not already installed)
+
+To install `kumactl`, follow the link:https://kuma.io/docs/2.2.x/production/install-kumactl/[official kumactl installation guide] for your specific operating system.
+Once installed, you can verify the installation by running:
+You should see the version information for `kumactl`.
+
+[source,bash]
+----
+> kumactl version
+
+Client: Kuma 2.2.0
+Unable to connect to control plane: Get "http://localhost:5681/": dial tcp 127.0.0.1:5681: connect: connection refused
+----
+
+
+=== Step 2: Deploy Kuma Control Plane to Kubernetes Cluster
+
+With `kumactl` installed, we can now deploy the Kuma control plane to our Kubernetes cluster.
+First, create a new namespace for Kuma:
+
+[source,bash]
+----
+kubectl create namespace kuma-system
+----
+
+Next, use `kumactl` to install Kuma in the `kuma-system` namespace:
+
+[source,bash]
+----
+kumactl install control-plane | kubectl apply -f -
+----
+
+This command generates Kubernetes manifests for the Kuma control plane components and applies them to your cluster within the `kuma-system` namespace.
+
+=== Step 3: Verify Kuma Control Plane Deployment
+
+After deploying the Kuma control plane, verify that all components are running successfully:
+
+[source,bash]
+----
+kubectl get pods -n kuma-system
+
+NAME                                  READY   STATUS    RESTARTS      AGE
+kuma-control-plane-79cbbd88cb-j6jnh   1/1     Running   1 (96s ago)   4d4h
+----
+
+You should see a list of pods related to Kuma, and their status should be `Running`.
+
+Congratulations! You have successfully set up the Kuma service mesh control plane using `kumactl`.
+In the next section, we'll deploy Java demo applications and connect them to the service mesh.
+
+[source,bash]
+.Port Forwarding into Kuma pod
+----
+kubectl port-forward svc/kuma-control-plane -n kuma-system 5681:5681 
+----
+
+and open your browser http://localhost:5681/gui/
+
+image::kuma_is_running.png[Kuma Pods Running]
+
+<<top,Back on top☝️>>
