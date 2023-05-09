@@ -1,0 +1,27 @@
+apiVersion: kuma.io/v1alpha1
+kind: MeshHTTPRoute
+metadata:
+  name: http-route-1
+  namespace: kuma-system
+  labels:
+    kuma.io/mesh: default
+spec:
+  targetRef:
+    kind: MeshService
+    name: work_mesh4java_svc_8081
+  to:
+    - targetRef:
+        kind: MeshService
+        name: meeting_mesh4java_svc_8080
+      rules:
+        - matches:
+            - path:
+                type: Exact
+                value: /meet
+          default:
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  set:
+                    - name: x-work-header
+                      value: micronaut

@@ -1,0 +1,24 @@
+apiVersion: kuma.io/v1alpha1
+kind: MeshRateLimit
+metadata:
+  name: meeting-rate-limit
+  namespace: kuma-system
+spec:
+  targetRef:
+    kind: MeshService
+    name: meeting_mesh4java_svc_8080
+  from:
+    - targetRef:
+        kind: Mesh
+      default:
+        local:
+          http:
+            requestRate:
+              num: 3
+              interval: 10s
+            onRateLimit:
+              status: 423
+              headers:
+                add:
+                  - name: "x-kuma-rate-limited"
+                    value: "true"

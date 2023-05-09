@@ -1,0 +1,141 @@
+== Connecting Demo Applications to the Service Mesh and Enabling Traffic Policies
+
+In this section, we'll connect the Spring Boot and Micronaut demo applications to the Kuma service mesh and enable various traffic policies such as routing, load balancing, mTLS encryption, and rate limiting.
+
+=== Step 1: Verify Demo Applications are Connected to the Service Mesh
+
+After deploying the demo applications with sidecar injection enabled, verify that they are connected to the Kuma service mesh:
+
+[source,bash]
+----
+kubectl get dataplanes -n mesh4java
+----
+
+You should see a list of dataplanes representing the demo applications, indicating that they are connected to the service mesh.
+
+image::demo_apps_dataplanes.png[Demo Apps Dataplanes]
+
+=== Step 2: Enable Mesh HTTP Route Policy
+
+Create a traffic routing policy to split traffic between the Spring Boot (meeting) and Micronaut (work) demo applications:
+
+[source,yaml]
+----
+apiVersion: kuma.io/v1alpha1
+kind: MeshHTTPRoute
+metadata:
+  name: http-route-1
+  namespace: kuma-system
+  labels:
+    kuma.io/mesh: default
+spec:
+  targetRef:
+    kind: MeshService
+    name: work_mesh4java_svc_8081
+  to:
+    - targetRef:
+        kind: MeshService
+        name: meeting_mesh4java_svc_8080
+      rules:
+        - matches:
+            - path:
+                type: Exact
+                value: /meet
+          default:
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  set:
+                    - name: x-work-header
+                      value: micronaut
+----
+
+Apply the traffic routing policy to the `mesh4java` namespace:
+
+[source,bash]
+----
+kubectl apply -f mesh-route-add-header.yaml -n mesh4java
+----
+
+This policy adds extra custom header `x-kuma-header` to all request to `meeting` service.
+
+=== Step 3: Enable mTLS Encryption
+
+Create a Mesh resource to enable mTLS encryption for the service mesh:
+
+[source,yaml]
+----
+apiVersion: kuma.io/v1alpha1
+kind: Mesh
+metadata:
+  name: default
+spec:
+  mtls:
+    enabledBackend: ca-1
+    backends:
+      - name: ca-1
+        type: builtin
+        dpCert:
+          rotation:
+            expiration: 1d
+        conf:
+          caCert:
+            RSAbits: 2048
+            expiration: 10y
+----
+
+Apply the Mesh resource:
+
+[source,bash]
+----
+kubectl apply -f mtls.yaml
+----
+
+This configuration enables mTLS encryption using a built-in certificate authority (CA).
+
+=== Step 4: Enable Rate Limiting Policy
+
+Create a rate limiting policy to limit the number of requests per second (RPS) to the demo applications:
+
+[source,yaml]
+----
+apiVersion: kuma.io/v1alpha1
+kind: MeshRateLimit
+metadata:
+  name: meeting-rate-limit
+  namespace: kuma-system
+spec:
+  targetRef:
+    kind: MeshService
+    name: meeting_mesh4java_svc_8080
+  from:
+    - targetRef:
+        kind: Mesh
+      default:
+        local:
+          http:
+            requestRate:
+              num: 3
+              interval: 10s
+            onRateLimit:
+              status: 423
+              headers:
+                add:
+                  - name: "x-kuma-rate-limited"
+                    value: "true"
+----
+
+Apply the rate limiting policy to the `mesh4java` namespace:
+
+[source,bash]
+----
+kubectl apply -f mesh-ratelimit.yaml -n mesh4java
+----
+
+This policy limits incoming requests to 3 RPS (only 3 meetings) and allows exceeding requests to pass through.
+
+Congratulations! 
+You have successfully connected the demo applications to the Kuma service mesh and enabled various traffic policies.
+In the next section, we'll explore observability features by using Grafana and Prometheus.
+
+<<top, Back on top☝️>>
