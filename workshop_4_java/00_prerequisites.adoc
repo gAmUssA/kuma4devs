@@ -1,18 +1,16 @@
 == Requirements for Attendees
 
-To make the most out of the "Getting Started with Service Mesh" workshop, attendees are expected to meet the following requirements:
+To make the most out of the "Service Mesh for Java developers" workshop, attendees are expected to meet the following requirements:
 
-. *Basic knowledge of application development*:
-Attendees should be familiar with any modern programming language (Java, kotlin, JavaScript, Python). 
-Some of the demo applications will be using Java and Kotlin. 
-But Service Mesh concepts can be translated to any language.
+. *Basic knowledge of Java development*:
+Attendees should be familiar with Java programming concepts and have experience working with Java-based frameworks such as Spring Boot and Micronaut.
 
 . *Familiarity with containerization*:
-A basic understanding of Docker and containerization concepts is essential, as the workshop will involve deploying applications within containers.
+A basic understanding of Docker and containerization concepts is essential, as the workshop will involve deploying Java applications within containers.
 
 . *Experience with Kubernetes*:
 Attendees should have a working knowledge of Kubernetes, including concepts like clusters, nodes, deployments, and services.
-Prior experience using Minikube for local Kubernetes development is strongly recommended.
+Prior experience using Minikube or KIND (Kubernetes IN Docker) for local Kubernetes development is strongly recommended.
 
 . *Understanding of service mesh concepts*:
 A basic understanding of service mesh architecture and its benefits will help attendees grasp the workshop material more effectively.
@@ -22,8 +20,11 @@ Prior knowledge of service mesh technologies (Istio, Kuma, Linkerd, etc.) is a p
 Ensure that the following tools are installed and set up on your local machine before attending the workshop:
 - link:https://www.docker.com/products/docker-desktop[Docker (latest version)]
 - link:https://minikube.sigs.k8s.io/docs/start/[Minikube (latest version)]
+- link:https://kind.sigs.k8s.io/docs/user/quick-start/[KIND (latest version)]
 - link:https://kubernetes.io/docs/tasks/tools/install-kubectl/[Kubectl (latest version)]
 - link:https://helm.sh/docs/intro/install/[Helm (latest version)]
+- link:https://jdk.java.net/17/[Java Development Kit (JDK) 17]
+- link:https://www.jetbrains.com/idea/download/[IntelliJ IDEA (Community Edition or existing license for Enterprise Edition; Community Edition is sufficient)]
 - link:https://k9scli.io/topics/install/[K9s Kubernetes client (latest version)]
 - link:http://https://insomnia.rest/download[Insomnia]
 
@@ -40,7 +41,6 @@ Attendees are expected to actively engage in hands-on exercises and discussions 
 
 NOTE: Grafana and Prometheus will be installed during the workshop, so there is no need to pre-install them on your local machine.
 
-By meeting these requirements, attendees will be well-prepared to participate in the "Getting Started with Service Mesh" workshop,
-enhancing their understanding of service mesh technologies and their benefits for application developers.
+By meeting these requirements, attendees will be well-prepared to participate in the "Service Mesh for Java developers" workshop, enhancing their understanding of service mesh technologies and their benefits for Java/JVM developers.
 
 <<top, Back on top☝️>>

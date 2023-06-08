@@ -8,7 +8,7 @@ After deploying the demo applications with sidecar injection enabled, verify tha
 
 [source,bash]
 ----
-kubectl get dataplanes -n mesh4devs
+kubectl get dataplanes -n mesh4java
 ----
 
 You should see a list of dataplanes representing the demo applications, indicating that they are connected to the service mesh.
@@ -25,17 +25,17 @@ apiVersion: kuma.io/v1alpha1
 kind: MeshHTTPRoute
 metadata:
   name: http-route-1
-  namespace: mesh4devs
+  namespace: mesh4java
   labels:
     kuma.io/mesh: default
 spec:
   targetRef:
     kind: MeshService
-    name: work_mesh4devs_svc_8081
+    name: work_mesh4java_svc_8081
   to:
     - targetRef:
         kind: MeshService
-        name: meeting_mesh4devs_svc_8080
+        name: meeting_mesh4java_svc_8080
       rules:
         - matches:
             - path:
@@ -50,11 +50,11 @@ spec:
                       value: micronaut
 ----
 
-Apply the traffic routing policy to the `mesh4devs` namespace:
+Apply the traffic routing policy to the `mesh4java` namespace:
 
 [source,bash]
 ----
-kubectl apply -f mesh-route-add-header.yaml -n mesh4devs
+kubectl apply -f mesh-route-add-header.yaml -n mesh4java
 ----
 
 This policy adds extra custom header `x-kuma-header` to all requests to `meeting` service.
@@ -103,11 +103,11 @@ apiVersion: kuma.io/v1alpha1
 kind: MeshRateLimit
 metadata:
   name: meeting-rate-limit
-  namespace: mesh4devs
+  namespace: mesh4java
 spec:
   targetRef:
     kind: MeshService
-    name: meeting_mesh4devs_svc_8080
+    name: meeting_mesh4java_svc_8080
   from:
     - targetRef:
         kind: Mesh
@@ -125,11 +125,11 @@ spec:
                     value: "true"
 ----
 
-Apply the rate-limiting policy to the `mesh4devs` namespace:
+Apply the rate-limiting policy to the `mesh4java` namespace:
 
 [source,bash]
 ----
-kubectl apply -f mesh-ratelimit.yaml -n mesh4devs
+kubectl apply -f mesh-ratelimit.yaml -n mesh4java
 ----
 
 This policy limits incoming requests to 3 RPS (only 3 meetings) and allows exceeding requests to pass through.

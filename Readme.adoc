@@ -1,13 +1,13 @@
-= Hands-On Workshop: Service Mesh for Java Developers
+= Hands-On Workshop: Getting Started with Service Mesh 
 Viktor Gamov <viktor@konghq.com>
-v1.0, 2023-05-02
+v1.0, 2023-06-08
 :toc: macro 
 :imagesdir: assets/images
 :kuma-homepage: http://kuma.io
 :imagesdir: ./workshop/images
 :hide-uri-scheme:
 
-Hello and welcome to the "Service Mesh for Java Developers" workshop.
+Hello and welcome to the "Getting Started with Service Mesh" workshop.
 Service mesh is a powerful pattern for managing communication between microservices in a distributed system.
 It decouples networking concerns from application code, making developing, deploying, and managing your services more manageable.
 As Java developers, you might be familiar with some of these networking functionalities many Java frameworks provide.
@@ -27,8 +27,6 @@ include::workshop/01_introduction.adoc[]
 include::workshop/02_setting_up_kuma.adoc[]
 
 include::workshop/03_deploy_apps.adoc[]
-
-include::workshop/03_expose_apps_via_ingress.adoc[]
 
 include::workshop/04_policies.adoc[]
 

@@ -1,0 +1,46 @@
+---
+apiVersion: kuma.io/v1alpha1
+kind: MeshGateway
+mesh: default
+metadata:
+  name: mesh4devs-app
+spec:
+  conf:
+    listeners:
+      - port: 80
+        protocol: HTTP
+  selectors:
+    - match:
+        kuma.io/service: mesh_gateway
+---
+apiVersion: kuma.io/v1alpha1
+kind: MeshGatewayInstance
+metadata:
+  name: mesh4devs-gateway
+  namespace: mesh4devs
+spec:
+  replicas: 1
+  serviceType: LoadBalancer
+  tags:
+    kuma.io/service: mesh_gateway
+---
+apiVersion: kuma.io/v1alpha1
+kind: MeshGatewayRoute
+mesh: default
+metadata:
+  name: mesh4devs-app
+spec:
+  conf:
+    http:
+      rules:
+        - matches:
+            - path:
+                match: PREFIX
+                value: /
+          backends:
+            - destination:
+                kuma.io/service: work_mesh4devs_svc_8081
+              weight: 1
+  selectors:
+    - match:
+        kuma.io/service: mesh_gateway

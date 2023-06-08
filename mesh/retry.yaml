@@ -6,10 +6,10 @@ metadata:
 spec:
   sources:
     - match:
-        kuma.io/service: work_mesh4java_svc_8081
+        kuma.io/service: work_mesh4devs_svc_8081
   destinations:
     - match:
-        kuma.io/service: meeting_mesh4java_svc_8080
+        kuma.io/service: meeting_mesh4devs_svc_8080
   conf:
     http:
       numRetries: 5

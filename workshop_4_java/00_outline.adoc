@@ -3,15 +3,15 @@
 1. *<<Introduction>> (15 minutes)*
 - Welcome and workshop overview
 - Brief introduction to service mesh concepts
-- Service mesh benefits for the developers
+- Service mesh benefits for Java/JVM developers
 
 2. *<<Setting up the Kuma Service Mesh Control Plane>> (20 minutes)*
-- Installing Kuma/Kong Mesh
-- Exploring Kuma/Kong Mesh components and architecture
-- Understanding the role of the Control Plane (CP) in a service mesh
+- Installing Kuma
+- Exploring Kuma components and architecture
+- Understanding the role of the control plane in a service mesh
 
-3. *<<Deploying Demo Applications Using Kustomize>> (30 minutes)*
-- Overview demo applications
+3. *<<Deploying Java Demo Applications with Skaffold>> (30 minutes)*
+- Creating Spring Boot and Micronaut demo applications
 - Containerizing the applications using Docker
 - Deploying the applications to Kubernetes
 - Connecting the applications to the service mesh

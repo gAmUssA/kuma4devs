@@ -17,8 +17,8 @@ TIMESTAMP=$(shell date)
 
 pad=$(printf '%0.1s' "-"{1..80})
 
-KONG_MESH_VERSION ?= 2.2.0
-KUMA_VERSION ?= 2.2.0
+KONG_MESH_VERSION ?= 2.2.1
+KUMA_VERSION ?= 2.2.1
 KONG_NAMESPACE ?= kong
 KONG_HELM_RELEASE ?= kong
 DEMO_NAMESPACE ?= boutique
@@ -69,7 +69,7 @@ kong-mesh-install:
 	kumactl install control-plane --license-path ${LICENSE_PATH}/license.json | kubectl apply -f -
 	@echo ""
 
-kuma-install: check-dependencies
+kuma-install: 
 	@echo "☸️  Installing Kuma 🐻‍❄️"
 
 	if [ -d "./kuma-${KUMA_VERSION}" ]; then \

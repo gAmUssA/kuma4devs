@@ -1,0 +1,3 @@
+resources:
+  - meeting-deployment.yaml
+  - work-deployment.yaml

@@ -2,11 +2,11 @@
 
 As we conclude this workshop, let's recap what we've covered:
 
-- We introduced service mesh and its benefits for the developers.
-- We set up the Kuma service mesh control plane using `kumactl`.
-- We deployed containerized demo applications using Kustomize.
-- We connected the demo applications to the service mesh and enabled various traffic policies.
-- We explored observability features using Grafana and Prometheus.
+- We introduced service mesh and its benefits for Java developers
+- We set up the Kuma service mesh control plane using `kumactl`
+- We deployed Java demo applications built with Spring Boot and Micronaut using Skaffold
+- We connected the demo applications to the service mesh and enabled various traffic policies
+- We explored observability features using Grafana and Prometheus
 
 We also recommend learning about Ingress controllers and how they can be integrated with service mesh to manage incoming traffic to your cluster.
 
@@ -18,8 +18,8 @@ To get help with service mesh and Kuma, you can refer to the following resources
 - link:https://www.youtube.com/c/KongInc[Subscribe to Kong's YouTube Channel] and enable notifications for the latest updates and tutorials
 - Follow Viktor Gamov on Twitter: link:https://twitter.com/gAmUssA[@gAmUssA]
 
-Thank you for attending the "Getting Started with Service Mesh" workshop.
-We hope you found it informative and helpful in understanding the benefits of using service mesh in your applications.
+Thank you for attending the "Service Mesh for Java Developers" workshop.
+We hope you found it informative and helpful in understanding the benefits of using service mesh in your Java applications.
 Please don't hesitate to reach out if you have any questions or need assistance with Kuma or service mesh.
 
 <<top, Back on top☝️>>

@@ -1,0 +1,60 @@
+== Exploring Observability Features with Grafana and Prometheus
+
+In this section, we'll explore the observability features offered by Kuma, including metrics and monitoring, by using Grafana and Prometheus. 
+We'll enable observability using `kumactl` and then access the Grafana dashboard to visualize the collected metrics.
+
+=== Step 1: Enable Observability with kumactl
+
+To enable observability in Kuma, install the observability components using `kumactl`:
+
+[source,bash]
+----
+kumactl install observability | kubectl apply -f -
+----
+
+This command generates Kubernetes manifests for the observability components, including Grafana and Prometheus, and applies them to your cluster within the `kuma-system` namespace.
+
+=== Step 2: Verify Observability Components Deployment
+
+After deploying the observability components, verify that all components are running successfully:
+
+[source,bash]
+----
+kubectl get pods -n mesh-observability
+----
+
+You should see a list of pods related to Kuma, Grafana, and Prometheus, and their status should be `Running`.
+
+image::observability_pods_running.png[Observability Pods Running]
+
+=== Step 3: Expose Grafana Service
+
+To access the Grafana dashboard, expose the Grafana service using port forwarding:
+
+[source,bash]
+----
+kubectl port-forward svc/kuma-grafana -n kuma-system 3000:80
+----
+
+This command maps the Grafana service's port 80 to your local machine's port 3000.
+
+=== Step 4: Access Grafana Dashboard
+
+With the Grafana service exposed, open a web browser and navigate to http://localhost:3000.
+
+You will see the Grafana login page. The default credentials for Grafana are:
+
+- Username: admin
+- Password: admin
+
+After logging in, you will see the Kuma Grafana dashboard, which displays various metrics related to the service mesh, such as request rate, latency, and error rate.
+
+image::grafana_dashboard.png[Grafana Dashboard]
+
+Feel free to explore the Grafana dashboard and its various panels to gain insights into the performance and health of your demo applications within the Kuma service mesh.
+
+Congratulations! 
+You have successfully enabled observability in Kuma using Grafana and Prometheus. 
+With these powerful tools, you can monitor and visualize the performance of your service mesh and gain valuable insights into your application's behavior.
+
+<<top, Back on top☝️>>

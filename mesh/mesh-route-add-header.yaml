@@ -8,11 +8,11 @@ metadata:
 spec:
   targetRef:
     kind: MeshService
-    name: work_mesh4java_svc_8081
+    name: work_mesh4devs_svc_8081
   to:
     - targetRef:
         kind: MeshService
-        name: meeting_mesh4java_svc_8080
+        name: meeting_mesh4devs_svc_8080
       rules:
         - matches:
             - path:
