@@ -23,7 +23,6 @@ Ensure that the following tools are installed and set up on your local machine b
 - link:https://www.docker.com/products/docker-desktop[Docker (latest version)]
 - link:https://minikube.sigs.k8s.io/docs/start/[Minikube (latest version)]
 - link:https://kubernetes.io/docs/tasks/tools/install-kubectl/[Kubectl (latest version)]
-- link:https://helm.sh/docs/intro/install/[Helm (latest version)]
 - link:https://k9scli.io/topics/install/[K9s Kubernetes client (latest version)]
 - link:http://https://insomnia.rest/download[Insomnia]
 

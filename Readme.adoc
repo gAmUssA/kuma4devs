@@ -10,7 +10,7 @@ v1.0, 2023-06-08
 Hello and welcome to the "Getting Started with Service Mesh" workshop.
 Service mesh is a powerful pattern for managing communication between microservices in a distributed system.
 It decouples networking concerns from application code, making developing, deploying, and managing your services more manageable.
-As Java developers, you might be familiar with some of these networking functionalities many Java frameworks provide.
+As a developer, you might be familiar with some of these networking functionalities many frameworks toolkits provide.
 However, adopting a service mesh can unlock even more capabilities and improve your applications' security, reliability, and observability.
 
 [#top]
