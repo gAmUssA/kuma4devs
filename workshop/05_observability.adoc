@@ -25,7 +25,7 @@ kubectl get pods -n mesh-observability
 
 You should see a list of pods related to Kuma, Grafana, and Prometheus, and their status should be `Running`.
 
-image::observability_pods_running.png[Observability Pods Running]
+image::images/observability_pods_running.png[Observability Pods Running]
 
 === Step 3: Expose Grafana Service
 

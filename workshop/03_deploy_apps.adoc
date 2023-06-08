@@ -43,6 +43,6 @@ kubectl get pods -n mesh4devs
 
 You should see a list of pods related to the Spring Boot and Micronaut applications, and their status should be `Running`.
 
-image::demo_apps_pods_running.png[Demo Apps Pods Running]
+image::images/demo_apps_pods_running.png[Demo Apps Pods Running]
 
 Congratulations! You have successfully deployed the Spring Boot and Micronaut demo applications using Kustomize.

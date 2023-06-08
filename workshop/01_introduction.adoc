@@ -5,7 +5,7 @@ Initially, Kuma was developed by Kong but was donated to the CNCF Community.
 Kuma offers many features, including traffic routing, load balancing, mTLS encryption, rate limiting, and observability.
 We will work with Java or Kotlin demo applications built using Spring Boot and Micronaut frameworks and deploy them within a Kubernetes cluster.
 
-image::kuma_architecture.jpeg[Kuma Architecture]
+image::images/kuma_architecture.jpeg[Kuma Architecture]
 
 Throughout the workshop, you'll learn how to:
 

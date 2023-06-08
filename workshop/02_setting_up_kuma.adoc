@@ -13,7 +13,7 @@ You should see the version information for `kumactl`.
 ----
 > kumactl version
 
-Client: Kuma 2.2.0
+Client: Kuma 2.2.1
 Unable to connect to control plane: Get "http://localhost:5681/": dial tcp 127.0.0.1:5681: connect: connection refused #<1>
 ----
 <1> ignore this error for now, we will fix it later
@@ -65,7 +65,7 @@ kubectl port-forward svc/kuma-control-plane -n kuma-system 5681:5681  #<1>
 
 and open your browser http://localhost:5681/gui/
 
-image::kuma_is_running.png[Kuma Pods Running]
+image::images/kuma_is_running.png[Kuma Pods Running]
 
 Congratulations! 
 You have successfully set up the Kuma service mesh control plane using `kumactl`.
