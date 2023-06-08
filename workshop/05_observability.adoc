@@ -49,7 +49,7 @@ You will see the Grafana login page. The default credentials for Grafana are:
 
 After logging in, you will see the Kuma Grafana dashboard, which displays various metrics related to the service mesh, such as request rate, latency, and error rate.
 
-image::grafana_dashboard.png[Grafana Dashboard]
+image::images/grafana_dashboard.png[Grafana Dashboard]
 
 Feel free to explore the Grafana dashboard and its various panels to gain insights into the performance and health of your demo applications within the Kuma service mesh.
 
