@@ -1,6 +1,5 @@
 package sh.kongme.developer.meeting;
 
-import org.apache.coyote.Response;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -11,10 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import static java.lang.Thread.*;
+import static java.lang.Thread.sleep;
 
 @SpringBootApplication
 @RestController
