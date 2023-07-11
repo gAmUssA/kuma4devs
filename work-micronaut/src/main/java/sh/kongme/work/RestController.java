@@ -62,7 +62,7 @@ public class RestController {
   private List<String> ofRequest(final HttpHeaders headers) {
     final List<String> collect = stream(headers.spliterator(), false)
         .filter(entry -> {
-          if (entry.getKey().equals(HttpHeaders.HOST)) {
+          if (entry.getKey().equalsIgnoreCase(HttpHeaders.HOST)) {
             return false;
           }
           return true;
