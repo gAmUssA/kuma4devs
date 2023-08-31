@@ -6,7 +6,7 @@ metadata:
 spec:
   targetRef:
     kind: MeshService
-    name: meeting_mesh4java_svc_8080
+    name: meeting_mesh4devs_svc_8080
   from:
     - targetRef:
         kind: Mesh

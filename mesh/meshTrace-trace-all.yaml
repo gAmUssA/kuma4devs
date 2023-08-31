@@ -4,11 +4,12 @@ metadata:
   name: default
   namespace: kuma-system
   labels:
-    kuma.io/mesh: default 
+    kuma.io/mesh: default
 spec:
   targetRef:
     kind: Mesh
   default:
     backends:
-      - zipkin:
+      - type: Zipkin
+        zipkin:
           url: http://jaeger-collector.mesh-observability:9411/api/v2/spans

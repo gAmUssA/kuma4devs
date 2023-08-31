@@ -17,11 +17,11 @@ TIMESTAMP=$(shell date)
 
 pad=$(printf '%0.1s' "-"{1..80})
 
-KONG_MESH_VERSION ?= 2.2.1
-KUMA_VERSION ?= 2.2.1
+KONG_MESH_VERSION ?= 2.3.0
+KUMA_VERSION ?= 2.3.0
 KONG_NAMESPACE ?= kong
 KONG_HELM_RELEASE ?= kong
-DEMO_NAMESPACE ?= boutique
+DEMO_NAMESPACE ?= mesh4devs
 LICENSE_PATH ?= ~/tmp/istio+kong
 
 define print-prompt =
@@ -142,6 +142,19 @@ skaffold-delete: check-dependencies
 	skaffold delete -n mesh4java
 	@echo ""
 
+demo-apps-install: check-dependencies
+	@echo "👩‍💻 Installing meeting and work apps with Kustomize"
+	kubectl create namespace ${DEMO_NAMESPACE}
+	kubectl label namespace mesh4devs kuma.io/sidecar-injection=enabled
+	kubectl apply -k ./kubernetes -n ${DEMO_NAMESPACE}
+	kubectl -n ${DEMO_NAMESPACE} wait --for=condition=Available deployment work
+	@echo ""
+
+demo-apps-uninstall: check-dependencies
+	@echo "🔥 removing meeting and work apps"
+	kubectl delete -k ./kubernetes -n ${DEMO_NAMESPACE}
+	kubectl delete namespace ${DEMO_NAMESPACE}
+	@echo ""
 	
 help:
 	@echo ""
