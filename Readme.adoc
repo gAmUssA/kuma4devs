@@ -16,7 +16,7 @@ However, adopting a service mesh can unlock even more capabilities and improve y
 [#top]
 toc::[]
 
-image::service_mesh_architecture.jpeg[Service Mesh Architecture, weight=50%]
+image::demo_architecture.png[Service Mesh Architecture, weight=50%]
 
 include::workshop/00_prerequisites.adoc[]
 
