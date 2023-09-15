@@ -22,6 +22,7 @@ fun Application.configureRouting() {
         log.info { "💉 Got meeting server url from environment: $meetServerUrl" }
 
         get("/work") {
+            var originalHeaders: Headers = call.request.headers
             val client = HttpClient(CIO)
             val start = currentTimeMillis()
             var count = 0
@@ -30,6 +31,16 @@ fun Application.configureRouting() {
                     method = HttpMethod.Get
                     headers {
                         append(HttpHeaders.UserAgent, "Ktor Client 🤘")
+                        // propagate http headers (including tracing) from request to meeting request 
+                        for (header in originalHeaders.entries()) {
+                            if (HttpHeaders.Host != header.key) {
+                                log.info { header.value }
+                                if (header.value.size != 1) {
+                                    append(header.key, header.value.joinToString { ", " })
+                                } else
+                                    append(header.key, header.value[0])
+                            }
+                        }
                     }
                 }
                 if (response.status.isSuccess()) {
