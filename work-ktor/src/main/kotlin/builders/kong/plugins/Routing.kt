@@ -1,27 +1,25 @@
 package builders.kong.plugins
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import kotlinx.serialization.Serializable
 import java.lang.System.currentTimeMillis
 
-inline fun <reified T> logger(): Logger {
-    return LoggerFactory.getLogger(T::class.java)
-}
+@Serializable
+data class MyResponse(val message: String)
 
 fun Application.configureRouting() {
-    var log = logger<Application>()
+    val log = KotlinLogging.logger {}
 
     routing {
         val meetServerUrl = environment!!.config.property("ktor.meet.server.url").getString()
-        log.info("💉 Got meeting server url from environment: {}", meetServerUrl)
+        log.info { "💉 Got meeting server url from environment: $meetServerUrl" }
 
         get("/work") {
             val client = HttpClient(CIO)
@@ -35,17 +33,17 @@ fun Application.configureRouting() {
                     }
                 }
                 if (response.status.isSuccess()) {
-                    log.info("\uD83D\uDEB6 Going to meeting: {}", i)
+                    log.info { "\uD83D\uDEB6 Going to meeting: $i" }
                     count++
                 }
             }
             val end = currentTimeMillis()
             var message = "\uD83D\uDCC6 worked for ${end - start} ms, and went to $count meetings"
-            call.respond(HttpStatusCode.OK, message)
+            call.respond(HttpStatusCode.OK, MyResponse(message))
             client.close()
         }
         get("/") {
-            call.respond("RUOK")
+            call.respond("IMOK")
         }
     }
 }

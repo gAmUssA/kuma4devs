@@ -5,6 +5,7 @@ val logback_version: String by project
 plugins {
     kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.3.4"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20-Beta"
 }
 
 group = "builders.kong"
@@ -57,11 +58,14 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-cio-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-default-headers-jvm:$ktor_version")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("io.ktor:ktor-client-cio:$ktor_version")
 
     implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
