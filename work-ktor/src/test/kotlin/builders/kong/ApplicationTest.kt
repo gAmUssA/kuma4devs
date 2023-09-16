@@ -15,7 +15,7 @@ class ApplicationTest {
         }
         client.get("/").apply {
             assertEquals(HttpStatusCode.OK, status)
-            assertEquals("RUOK", bodyAsText())
+            assertEquals("IMOK", bodyAsText())
         }
     }
 }
