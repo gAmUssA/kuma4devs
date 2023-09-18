@@ -5,6 +5,6 @@ import io.ktor.server.plugins.defaultheaders.*
 fun Application.configureHTTP() {
 
     install(DefaultHeaders) {
-        header("X-Engine", "Ktor") // will send this header with each response
+        header("X-Engine", "Ktor JVM") // will send this header with each response
     }
 }
