@@ -1,6 +1,7 @@
 plugins {
   id("com.github.johnrengelman.shadow") version "8.1.1"
-  id("io.micronaut.application") version "3.7.10"
+  id("io.micronaut.application") version "4.0.3"
+  id("io.micronaut.aot") version "4.0.3"
   id("com.google.cloud.tools.jib") version "3.3.2"
 }
 
@@ -12,17 +13,13 @@ repositories {
 }
 
 dependencies {
-  annotationProcessor("io.micronaut:micronaut-http-validation")
+  annotationProcessor("org.projectlombok:lombok")
+  annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
   implementation("io.micronaut:micronaut-http-client")
-  implementation("io.micronaut:micronaut-http-server-netty")
-  implementation("io.micronaut:micronaut-jackson-databind")
-  implementation("io.micronaut:micronaut-inject-java")
-  implementation("jakarta.annotation:jakarta.annotation-api")
+  implementation("io.micronaut.serde:micronaut-serde-jackson")
+  implementation("org.yaml:snakeyaml")
+  compileOnly("org.projectlombok:lombok")
   runtimeOnly("ch.qos.logback:logback-classic")
-  implementation("io.micronaut:micronaut-validation")
-  compileOnly 'org.projectlombok:lombok'
-  annotationProcessor 'org.projectlombok:lombok'
-
 }
 
 application {
@@ -37,17 +34,31 @@ dockerBuild {
   images = ["gamussa/mesh4java-work:latest"]
 }
 
+dockerBuildNative {
+  images = ["gamussa/mesh4java-work:latest"]
+}
+
 tasks {
   jib {
     from {
-      image = "openjdk:17-alpine"
+      image = "bellsoft/liberica-openjdk-alpine"
+      platforms {
+        platform {
+          architecture = "amd64"
+          os = "linux"
+        }
+        platform {
+          architecture = "arm64"
+          os = "linux"
+        }
+      }
     }
     to {
-      //image = "gcr.io/myapp/jib-image"
       image = "gamussa/mesh4java-work"
     }
   }
 }
+
 graalvmNative.toolchainDetection = false
 micronaut {
   runtime("netty")
@@ -55,6 +66,17 @@ micronaut {
   processing {
     incremental(true)
     annotations("sh.kongme.work.*")
+  }
+  aot {
+    // Please review carefully the optimizations enabled below
+    // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+    optimizeServiceLoading = false
+    convertYamlToJava = false
+    precomputeOperations = true
+    cacheEnvironment = true
+    optimizeClassLoading = true
+    deduceEnvironment = true
+    optimizeNetty = true
   }
 }
 
