@@ -34,7 +34,6 @@ fun Application.configureRouting() {
                         // propagate http headers (including tracing) from request to meeting request 
                         for (header in originalHeaders.entries()) {
                             if (HttpHeaders.Host != header.key) {
-                                log.info { header.value }
                                 if (header.value.size != 1) {
                                     append(header.key, header.value.joinToString { ", " })
                                 } else
@@ -53,7 +52,8 @@ fun Application.configureRouting() {
             call.respond(HttpStatusCode.OK, MyResponse(message))
             client.close()
         }
-        get("/") {
+        // healthcheck
+        get("/RUOK") {
             call.respond("IMOK")
         }
     }

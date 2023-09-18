@@ -13,7 +13,7 @@ class ApplicationTest {
         application {
             configureRouting()
         }
-        client.get("/").apply {
+        client.get("/RUOK").apply {
             assertEquals(HttpStatusCode.OK, status)
             assertEquals("IMOK", bodyAsText())
         }
