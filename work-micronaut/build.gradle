@@ -16,8 +16,10 @@ dependencies {
   annotationProcessor("org.projectlombok:lombok")
   annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
   implementation("io.micronaut:micronaut-http-client")
+  implementation("io.micronaut:micronaut-management")
   implementation("io.micronaut.serde:micronaut-serde-jackson")
   implementation("org.yaml:snakeyaml")
+  implementation("org.fusesource.jansi:jansi:2.4.0")
   compileOnly("org.projectlombok:lombok")
   runtimeOnly("ch.qos.logback:logback-classic")
 }

@@ -75,6 +75,11 @@ public class RestController {
     return ok("\uD83D\uDCC6 worked for " + (end - start) + "ms, and went to " + count + " meetings");
   }
 
+  @Get(value = "/ruok", produces = TEXT_PLAIN)
+  public HttpResponse<String> healthcheck() {
+    return ok("imok");
+  }
+
   private List<String> ofRequest(final HttpHeaders headers) {
     return stream(headers.spliterator(), false)
         .filter(entry -> !FORBIDDEN_HEADERS.contains(entry.getKey()))
