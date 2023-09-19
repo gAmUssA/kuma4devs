@@ -15,6 +15,22 @@ import io.micronaut.http.annotation.Get;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import static io.micronaut.http.HttpHeaders.ACCEPT_CHARSET;
+import static io.micronaut.http.HttpHeaders.ACCEPT_ENCODING;
+import static io.micronaut.http.HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS;
+import static io.micronaut.http.HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD;
+import static io.micronaut.http.HttpHeaders.CONNECTION;
+import static io.micronaut.http.HttpHeaders.CONTENT_LENGTH;
+import static io.micronaut.http.HttpHeaders.COOKIE;
+import static io.micronaut.http.HttpHeaders.DATE;
+import static io.micronaut.http.HttpHeaders.EXPECT;
+import static io.micronaut.http.HttpHeaders.HOST;
+import static io.micronaut.http.HttpHeaders.ORIGIN;
+import static io.micronaut.http.HttpHeaders.REFERER;
+import static io.micronaut.http.HttpHeaders.TE;
+import static io.micronaut.http.HttpHeaders.TRAILER;
+import static io.micronaut.http.HttpHeaders.TRANSFER_ENCODING;
+import static io.micronaut.http.HttpHeaders.UPGRADE;
 import static io.micronaut.http.HttpHeaders.USER_AGENT;
 import static io.micronaut.http.HttpHeaders.VIA;
 import static io.micronaut.http.HttpResponse.ok;
@@ -59,18 +75,27 @@ public class RestController {
     return ok("\uD83D\uDCC6 worked for " + (end - start) + "ms, and went to " + count + " meetings");
   }
 
+  @Get(value = "/ruok", produces = TEXT_PLAIN)
+  public HttpResponse<String> healthcheck() {
+    return ok("imok");
+  }
+
   private List<String> ofRequest(final HttpHeaders headers) {
-    final List<String> collect = stream(headers.spliterator(), false)
-        .filter(entry -> {
-          if (entry.getKey().equalsIgnoreCase(HttpHeaders.HOST)) {
-            return false;
-          }
-          return true;
-        })
+    return stream(headers.spliterator(), false)
+        .filter(entry -> !FORBIDDEN_HEADERS.contains(entry.getKey()))
         .map(entry -> new String[]{entry.getKey(), entry.getValue().stream().map(Objects::toString).collect(joining(", "))})
         .flatMap(strings -> Stream.of(strings[0], strings[1]))
         .collect(Collectors.toList());
-    //System.out.println(collect);
-    return collect;
   }
+
+  // https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name
+  public static List<String> FORBIDDEN_HEADERS = List.of(
+      ACCEPT_CHARSET,
+      ACCEPT_ENCODING,
+      ACCESS_CONTROL_REQUEST_HEADERS,
+      ACCESS_CONTROL_REQUEST_METHOD,
+      CONNECTION, CONTENT_LENGTH, COOKIE,
+      DATE, EXPECT, HOST, ORIGIN, REFERER, TE,
+      TRAILER, TRANSFER_ENCODING, UPGRADE, VIA
+  );
 }
