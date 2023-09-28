@@ -17,8 +17,8 @@ TIMESTAMP=$(shell date)
 
 pad=$(printf '%0.1s' "-"{1..80})
 
-KONG_MESH_VERSION ?= 2.3.0
-KUMA_VERSION ?= 2.3.0
+KONG_MESH_VERSION ?= 2.4.1
+KUMA_VERSION ?= 2.4.1
 KONG_NAMESPACE ?= kong
 KONG_HELM_RELEASE ?= kong
 DEMO_NAMESPACE ?= mesh4devs
@@ -86,6 +86,11 @@ kuma-install:
 	@echo "${BLUE}𐄳${RESET} Installing Kuma Control Plane..."
 	kubectl config current-context
 	kumactl install control-plane | kubectl apply -f -
+	@echo ""
+
+kuma-uninstall: check-dependencies
+	@echo "Uninstalling Kuma CP"
+	kumactl install control-plane | kubectl delete -f -
 	@echo ""
 
 mesh-validate: check-dependencies

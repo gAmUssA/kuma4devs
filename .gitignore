@@ -167,3 +167,4 @@ gradle-app.setting
 
 .idea
 /kuma-*/
+/kong-mesh-*/

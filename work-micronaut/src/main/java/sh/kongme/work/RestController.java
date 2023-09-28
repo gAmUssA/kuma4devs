@@ -82,7 +82,7 @@ public class RestController {
 
   private List<String> ofRequest(final HttpHeaders headers) {
     return stream(headers.spliterator(), false)
-        .filter(entry -> !FORBIDDEN_HEADERS.contains(entry.getKey()))
+        .filter(entry -> FORBIDDEN_HEADERS.stream().noneMatch(s -> s.equalsIgnoreCase(entry.getKey())))
         .map(entry -> new String[]{entry.getKey(), entry.getValue().stream().map(Objects::toString).collect(joining(", "))})
         .flatMap(strings -> Stream.of(strings[0], strings[1]))
         .collect(Collectors.toList());
