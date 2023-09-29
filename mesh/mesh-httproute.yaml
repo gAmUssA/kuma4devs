@@ -1,0 +1,23 @@
+apiVersion: kuma.io/v1alpha1
+kind: MeshGatewayRoute
+mesh: default
+metadata:
+  name: mesh4devs-app
+spec:
+  conf:
+    http:
+      rules:
+        - matches:
+            - path:
+                match: PREFIX
+                value: /
+          backends:
+            - destination:
+                kuma.io/service: work_mesh4devs_svc_8081
+              weight: 1
+#            - destination:
+#                kuma.io/service: work-ktor_mesh4devs_svc_8081
+#              weight: 1
+  selectors:
+    - match:
+        kuma.io/service: mesh_gateway

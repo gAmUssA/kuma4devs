@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: work-ktor
+  labels:
+    app: work-ktor
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+      protocol: TCP
+      appProtocol: http
+  selector:
+    app: work-ktor
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: work-ktor
+  labels:
+    app: work-ktor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: work-ktor
+  template:
+    metadata:
+      labels:
+        app: work-ktor
+    spec:
+      containers:
+        - name: work
+          image: gamussa/mesh4java-work-ktor:latest
+          env:
+            - name: MEET_URL
+              # SM without VO
+              #value: "http://meeting.mesh:8080"
+              # SM with VO. see mesh/vo.yaml
+              #value: "http://meeting.mesh"
+              # Kubernetes Default
+              value: "http://meeting:8080"
+          imagePullPolicy: Always
