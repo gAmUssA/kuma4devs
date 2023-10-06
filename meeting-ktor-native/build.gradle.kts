@@ -1,3 +1,7 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+import org.gradle.api.tasks.testing.logging.TestLogEvent.*
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
     dependencies {
         classpath("com.google.cloud.tools:jib-native-image-extension-gradle:0.1.0")
@@ -18,12 +22,15 @@ val myDockerTag = setOf("$version", "$version.${extra["buildNumber"]}")
 plugins {
     application
     kotlin("multiplatform") version "1.9.10"
-    //id("io.ktor.plugin") version "2.3.4"
+    id("io.ktor.plugin") version "2.3.5"
     id("com.google.cloud.tools.jib") version "3.4.0"
 }
 
 repositories {
     mavenCentral()
+}
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 
 kotlin {
@@ -62,6 +69,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-server-core:$ktor_version")
                 implementation("io.ktor:ktor-server-cio:$ktor_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
             }
         }
         val commonTest by getting {
@@ -89,17 +97,16 @@ jib {
         tags = myDockerTag
     }
     from {
-        //image = "gcr.io/distroless/base"
-        image = "bellsoft/alpaquita-linux-base"
+        image = "gcr.io/distroless/base"
         platforms {
             platform {
                 architecture = "amd64"
                 os = "linux"
             }
-            /*                platform {
-                                architecture = "arm64"
-                                os = "linux"
-                            }*/
+            platform {
+                architecture = "arm64"
+                os = "linux"
+            }
         }
     }
     pluginExtensions {
@@ -110,5 +117,15 @@ jib {
     }
     container {
         mainClass = "ApplicationKt"
+    }
+}
+
+tasks.named<Test>("test") {
+    testLogging {
+        outputs.upToDateWhen { false }
+        outputs.upToDateWhen { false }
+        showStandardStreams = false
+        events = setOf(PASSED, SKIPPED, FAILED)
+        exceptionFormat = FULL
     }
 }
