@@ -27,9 +27,9 @@ repositories {
 }
 
 kotlin {
-    
-    val hostOs = System.getProperty("os.name")
-    val arch = System.getProperty("os.arch")
+
+    //val hostOs = System.getProperty("os.name")
+    //val arch = System.getProperty("os.arch")
     /*val nativeTarget = when {
         hostOs == "Mac OS X" && arch == "x86_64" -> macosX64("native")
         hostOs == "Mac OS X" && arch == "aarch64" -> macosArm64("native")
@@ -48,7 +48,7 @@ kotlin {
             }
         }
     }
-    
+
     macosArm64 {
         binaries {
             executable(listOf(DEBUG, RELEASE)) {
@@ -73,45 +73,42 @@ kotlin {
     }
 }
 
+tasks.register<Copy>("copyLinuxBinary") {
+    dependsOn(tasks.first { it.name.contains("linkReleaseExecutableLinuxX64") })
+    from(layout.buildDirectory.file("bin/linuxX64/releaseExecutable/meeting-ktor-native.kexe"))
+    into(layout.buildDirectory.dir("native/nativeCompile"))
+}
 
-    tasks.register<Copy>("copyLinuxBinary") {
-        dependsOn(tasks.first { it.name.contains("linkReleaseExecutableLinuxX64") })
-        from(layout.buildDirectory.file("bin/linuxX64/releaseExecutable/meeting-ktor-native.kexe"))
-        into(layout.buildDirectory.dir("native/nativeCompile"))
+tasks.withType<com.google.cloud.tools.jib.gradle.JibTask> {
+    dependsOn("copyLinuxBinary")
+}
+
+jib {
+    to {
+        image = myDockerImageName
+        tags = myDockerTag
     }
-
-    tasks.withType<com.google.cloud.tools.jib.gradle.JibTask> {
-        dependsOn("copyLinuxBinary")
-    }
-
-    jib {
-        to {
-            image = myDockerImageName
-            tags = myDockerTag
-        }
-        from {
-            //image = "gcr.io/distroless/base"
-            image = "bellsoft/alpaquita-linux-base"
-            platforms {
-                platform {
-                    architecture = "amd64"
-                    os = "linux"
-                }
-                platform {
-                    architecture = "arm64"
-                    os = "linux"
-                }
+    from {
+        //image = "gcr.io/distroless/base"
+        image = "bellsoft/alpaquita-linux-base"
+        platforms {
+            platform {
+                architecture = "amd64"
+                os = "linux"
             }
-        }
-        pluginExtensions {
-            pluginExtension {
-                implementation = "com.google.cloud.tools.jib.gradle.extension.nativeimage.JibNativeImageExtension"
-                properties = mapOf(Pair("imageName", "meeting-ktor-native.kexe"))
-            }
-        }
-        container {
-            mainClass = "ApplicationKt"
+            /*                platform {
+                                architecture = "arm64"
+                                os = "linux"
+                            }*/
         }
     }
-
-//sourceSets.create("main")
+    pluginExtensions {
+        pluginExtension {
+            implementation = "com.google.cloud.tools.jib.gradle.extension.nativeimage.JibNativeImageExtension"
+            properties = mapOf(Pair("imageName", "meeting-ktor-native.kexe"))
+        }
+    }
+    container {
+        mainClass = "ApplicationKt"
+    }
+}

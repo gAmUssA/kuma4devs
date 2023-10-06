@@ -1,6 +1,7 @@
 package builders.kong.plugins
 
 //import io.github.oshai.kotlinlogging.KotlinLogging
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -20,11 +21,9 @@ fun Application.configureRouting() {
             //Thread.sleep but in Kotlin
             delay(250L.milliseconds)
 
+            call.response.header(HttpHeaders.Via, "Ktor v2.3.5")
             call.respondText("✅ done...")
 
-        }
-        get("/") {
-            call.respondText("Hello World!")
         }
     }
 }
