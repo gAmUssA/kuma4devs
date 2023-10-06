@@ -90,7 +90,8 @@ kotlin {
             tags = myDockerTag
         }
         from {
-            image = "gcr.io/distroless/base"
+            //image = "gcr.io/distroless/base"
+            image = "bellsoft/alpaquita-linux-base"
             platforms {
                 platform {
                     architecture = "amd64"
