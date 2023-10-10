@@ -43,7 +43,7 @@ kubectl label namespace kong kuma.io/sidecar-injection=enabled  #<1>
 
 [source,bash]
 ----
-helm install kong kong/kong 
+helm install kong kong/kong -n kong
 ----
 
 This command installs the Kong Ingress Controller with the Ingress controller enabled.
