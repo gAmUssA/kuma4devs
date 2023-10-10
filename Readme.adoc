@@ -16,6 +16,10 @@ However, adopting a service mesh can unlock even more capabilities and improve y
 [#top]
 toc::[]
 
+.Kuma Service Mesh Architecture 
+image::kuma_architecture.png[Service Mesh Architecture, weight=50%]
+
+.Demo Application Architecture
 image::demo_architecture.png[Service Mesh Architecture, weight=50%]
 
 include::workshop/00_prerequisites.adoc[]
